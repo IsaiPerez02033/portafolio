@@ -1,106 +1,172 @@
+<div align="center">
+
 # Isai Aram Pérez — Portfolio Personal
 
-Página web personal construida con **Next.js 14**, **TypeScript**, **Tailwind CSS** y **Framer Motion**.
+**AI Engineer & Backend Developer · IPN ESCOM · Ciudad de México**
 
-## Stack
+[![Next.js](https://img.shields.io/badge/Next.js_14-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![Framer Motion](https://img.shields.io/badge/Framer_Motion-black?style=for-the-badge&logo=framer&logoColor=white)](https://www.framer.com/motion/)
+[![Vercel](https://img.shields.io/badge/Deployed_on_Vercel-black?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
 
-- **Framework**: Next.js 14 con App Router
-- **Lenguaje**: TypeScript
-- **Estilos**: Tailwind CSS
-- **Animaciones**: Framer Motion
-- **Partículas**: tsParticles (red neuronal animada)
-- **Iconos**: react-icons
+[![Live Demo](https://img.shields.io/badge/🌐_Ver_sitio_en_vivo-00f5ff?style=for-the-badge)](https://isaiaram.dev)
 
-## Requisitos
+</div>
 
-- Node.js 18+
-- npm o yarn
+---
 
-## Instalación
+## ✨ Vista general
 
-```bash
-# 1. Instalar dependencias
-npm install
+Portfolio profesional con diseño **dark cyberpunk**, optimizado para SEO y con animaciones fluidas. Construido con arquitectura **data-driven**: todo el contenido vive en un solo archivo TypeScript, sin tocar JSX para actualizar datos.
 
-# 2. Ejecutar en desarrollo
-npm run dev
+**Secciones incluidas:**
 
-# 3. Build de producción
-npm run build
-npm start
-```
+- **Hero** — Presentación con efecto de escritura animado y fondo de red neuronal (tsParticles)
+- **Sobre mí** — Perfil, educación y highlights
+- **Skills** — 6 categorías con íconos tecnológicos reales (react-icons)
+- **Proyectos** — Cards expandibles con logos, insignias de premios y tags
+- **Logros** — Reconocimientos y hackathons
+- **Cursos** — Certificaciones con logos de emisores (Samsung, Oracle, Google Cloud)
+- **Contacto** — Formulario funcional integrado con Formspree
 
-Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
+---
 
-## Estructura del proyecto
+## 🏆 Destacado
+
+> 🥈 **2do Lugar — Talent Land 2026** · Track IBM Ciudades Inteligentes  
+> Proyecto **URBANIA** — Plataforma SaaS B2B de inteligencia urbana con IA generativa (IBM Watsonx + PostGIS)
+
+---
+
+## 🛠️ Stack tecnológico
+
+| Capa | Tecnología |
+|------|-----------|
+| Framework | Next.js 14 (App Router) |
+| Lenguaje | TypeScript |
+| Estilos | Tailwind CSS |
+| Animaciones | Framer Motion |
+| Partículas | tsParticles (red neuronal animada) |
+| Iconos | react-icons (Simple Icons, Feather, Tabler) |
+| Formulario | Formspree |
+| Deploy | Vercel |
+| SEO | Next.js Metadata API + JSON-LD |
+
+---
+
+## 📁 Estructura del proyecto
 
 ```
 src/
 ├── app/
-│   ├── layout.tsx          # SEO metadata + JSON-LD
-│   ├── page.tsx            # Página principal
-│   ├── globals.css         # Estilos globales
+│   ├── layout.tsx          # Metadata SEO + JSON-LD Person Schema
+│   ├── page.tsx            # Composición de secciones
+│   ├── globals.css         # Estilos globales + cursor personalizado
 │   ├── sitemap.ts          # XML Sitemap automático
 │   └── robots.ts           # robots.txt
 ├── components/
-│   ├── CustomCursor.tsx    # Cursor personalizado
-│   ├── Navbar.tsx          # Navegación sticky
-│   ├── ParticleBackground.tsx  # Fondo de partículas
-│   ├── SectionTitle.tsx    # Título reutilizable
-│   └── TypingEffect.tsx    # Efecto de escritura
+│   ├── CustomCursor.tsx    # Cursor dot + ring con efecto lerp
+│   ├── LogoImage.tsx       # Logos con soporte de variantes (invert/light-bg)
+│   ├── Navbar.tsx          # Navegación sticky con menú responsive
+│   ├── ParticleBackground.tsx  # Fondo de red neuronal animada
+│   ├── SectionTitle.tsx    # Encabezado reutilizable por sección
+│   └── TypingEffect.tsx    # Efecto de escritura cíclico
 ├── sections/
-│   ├── Hero.tsx            # Sección principal
-│   ├── AboutMe.tsx         # Sobre mí
-│   ├── Skills.tsx          # Habilidades
-│   ├── Experience.tsx      # Experiencia (timeline)
-│   ├── Courses.tsx         # Certificaciones
-│   └── Contact.tsx         # Formulario de contacto
+│   ├── Hero.tsx            # Sección principal (CTA + animaciones)
+│   ├── AboutMe.tsx         # Perfil, educación y estadísticas
+│   ├── Skills.tsx          # Grid de habilidades con íconos
+│   ├── Projects.tsx        # Proyectos con logos y badges
+│   ├── Achievements.tsx    # Logros y reconocimientos
+│   ├── Courses.tsx         # Certificaciones con logos de emisores
+│   └── Contact.tsx         # Formulario funcional (Formspree)
 ├── data/
-│   └── portfolio.ts        # ← EDITA AQUÍ TUS DATOS
-├── hooks/
-│   └── useScrollAnimation.ts
-└── lib/
-    └── utils.ts
+│   └── portfolio.ts        # ← Fuente única de verdad (edita aquí)
+├── lib/
+│   ├── skillIcons.tsx      # Mapa skill → ícono + color
+│   └── utils.ts            # scrollToSection y helpers
+└── hooks/
+    └── useScrollAnimation.ts
 ```
 
-## Personalización
+---
 
-**Todo el contenido está centralizado en `src/data/portfolio.ts`.**
-
-Para actualizar tus datos:
-1. Abre `src/data/portfolio.ts`
-2. Modifica los valores de `personalInfo`, `experience`, `courses`, etc.
-3. El sitio se actualiza automáticamente
-
-### Agregar tu CV
-En `personalInfo.cvUrl` cambia `'#'` por la URL de tu CV (Google Drive, Dropbox, etc.).
-
-### Cambiar la foto
-Reemplaza `public/profile.jpg` con tu nueva foto de perfil.
-
-### Formulario de contacto
-El formulario está listo para conectar con [Formspree](https://formspree.io) o EmailJS.
-En `sections/Contact.tsx` cambia el `handleSubmit` para enviar los datos reales.
-
-## SEO
-
-- ✅ Metadata optimizada (title, description, keywords)
-- ✅ Open Graph (Facebook, LinkedIn)
-- ✅ Twitter Cards
-- ✅ JSON-LD Person Schema
-- ✅ Sitemap XML automático
-- ✅ robots.txt
-- ✅ Canonical URL
-- ✅ Imágenes optimizadas con next/image
-
-## Deploy
-
-Recomendado: **Vercel** (zero-config para Next.js)
+## 🚀 Instalación y desarrollo local
 
 ```bash
-# Instalar Vercel CLI
-npm i -g vercel
+# 1. Clonar el repositorio
+git clone https://github.com/IsaiPerez02033/portafolio.git
+cd portafolio
 
-# Deploy
-vercel
+# 2. Instalar dependencias
+npm install
+
+# 3. Ejecutar en modo desarrollo
+npm run dev
 ```
+
+Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
+
+```bash
+# Build de producción
+npm run build
+npm start
+```
+
+**Requisitos:** Node.js 18+
+
+---
+
+## ✏️ Personalización
+
+Todo el contenido está centralizado en **`src/data/portfolio.ts`** — edita ese archivo para actualizar cualquier dato sin tocar JSX.
+
+```ts
+// src/data/portfolio.ts
+export const personalInfo = {
+  name: 'Tu Nombre',
+  title: 'Tu título profesional',
+  email: 'tu@email.com',
+  cvUrl: 'https://...',
+  // ...
+}
+```
+
+Para agregar proyectos, cursos o logros, modifica los arreglos `projects`, `courses` y `achievements` en el mismo archivo.
+
+**Logos de proyectos/educación:** coloca las imágenes en `public/logos/` y referencia la ruta en `portfolio.ts` con `logoImage: '/logos/archivo.png'`.
+
+---
+
+## 🔍 SEO
+
+- ✅ Metadata optimizada (title, description, keywords)
+- ✅ Open Graph (LinkedIn, Facebook)
+- ✅ Twitter Cards
+- ✅ JSON-LD Person Schema
+- ✅ Sitemap XML automático (`/sitemap.xml`)
+- ✅ robots.txt (`/robots.txt`)
+- ✅ Canonical URL
+- ✅ Imágenes optimizadas con `next/image`
+
+---
+
+## 📬 Formulario de contacto
+
+El formulario está conectado a [Formspree](https://formspree.io). Para usar tu propio endpoint, cambia la URL en `src/sections/Contact.tsx`:
+
+```ts
+const res = await fetch('https://formspree.io/f/TU_ID', { ... })
+```
+
+---
+
+## 📄 Licencia
+
+Este proyecto es de uso personal. Si lo usas como base para tu propio portfolio, se agradece un crédito o estrella ⭐ al repositorio.
+
+---
+
+<div align="center">
+  <sub>Hecho con ☕ y TypeScript · <a href="https://isaiaram.dev">isaiaram.dev</a></sub>
+</div>
