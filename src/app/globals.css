@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Base reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: #0a0a0a;
+  color: #e5e7eb;
+  font-family: 'Inter', system-ui, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Hide default cursor on desktop when custom cursor is active */
+@media (hover: hover) {
+  *, *::before, *::after {
+    cursor: none !important;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+::-webkit-scrollbar-thumb {
+  background: #00f5ff30;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00f5ff60;
+}
+
+/* Selection */
+::selection {
+  background: #00f5ff30;
+  color: #ffffff;
+}
+
+/* ── Utility classes ── */
+@layer utilities {
+  .text-gradient-cyan {
+    background: linear-gradient(135deg, #00f5ff, #7c3aed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glow-cyan {
+    box-shadow: 0 0 20px #00f5ff30, 0 0 40px #00f5ff10;
+  }
+
+  .glow-violet {
+    box-shadow: 0 0 20px #7c3aed30, 0 0 40px #7c3aed10;
+  }
+
+  .border-glow {
+    border-color: #00f5ff40;
+    box-shadow: 0 0 15px #00f5ff15, inset 0 0 15px #00f5ff05;
+  }
+}
+
+/* ── Animations ── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 0 10px #00f5ff40; }
+  100% { box-shadow: 0 0 30px #00f5ff80, 0 0 60px #00f5ff30; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ── tsParticles canvas fix ── */
+#tsparticles {
+  position: absolute !important;
+  width: 100% !important;
+  height: 100% !important;
+  top: 0;
+  left: 0;
+}
