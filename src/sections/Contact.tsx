@@ -23,10 +23,23 @@ export default function Contact() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setStatus('sending')
-    // Demo: simulate send — wire to Formspree/EmailJS for production
-    await new Promise((r) => setTimeout(r, 1200))
-    setStatus('sent')
-    setForm({ name: '', email: '', message: '' })
+
+    const res = await fetch('https://formspree.io/f/xqewgbbd', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: form.name,
+        email: form.email,
+        message: form.message,
+      }),
+    })
+
+    if (res.ok) {
+      setStatus('sent')
+      setForm({ name: '', email: '', message: '' })
+    } else {
+      setStatus('error')
+    }
   }
 
   const inputClass =
@@ -195,6 +208,8 @@ export default function Contact() {
                   ? 'Enviando...'
                   : status === 'sent'
                   ? '✓ ¡Mensaje enviado!'
+                  : status === 'error'
+                  ? 'Error — intenta de nuevo'
                   : 'Enviar mensaje'}
               </button>
 
