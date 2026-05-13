@@ -71,6 +71,25 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    name: 'ICEMEX',
+    period: '2026',
+    highlight: '🌐 Sitio corporativo en producción — icemex.mx',
+    description:
+      'Sitio corporativo y plataforma comercial para ICEMEX S.A. de C.V., fabricante con +20 años en iluminación pública, postería y material eléctrico en México.',
+    bullets: [
+      'Desarrollé como freelance el sitio corporativo completo (Next.js 15 + React 19 + TypeScript) desplegado en producción en icemex.mx.',
+      'Construí un Hero 3D interactivo con React Three Fiber, drei y postprocessing (bloom), animado de forma scrubeable con GSAP ScrollTrigger.',
+      'Integré "ICEMEXbot", un asistente conversacional con IA (Vercel AI SDK + Groq) con tool calling sobre un catálogo de 38 productos y 9 proyectos reales de la empresa.',
+      'Implementé catálogo dinámico, páginas de servicios, nosotros y proyectos, showcase de marcas (Philips, Schneider, IUSA, Tecnolite…), formulario lead-magnet e integración con WhatsApp.',
+      'SEO técnico completo: metadata, Open Graph, sitemap y robots automáticos, verificación de Google y soporte de modo claro/oscuro con variables CSS.',
+    ],
+    tags: ['Next.js 15', 'React 19', 'TypeScript', 'React Three Fiber', 'GSAP', 'Tailwind CSS', 'Vercel AI SDK', 'Groq'],
+    icon: '⚡',
+    logoImage: '/logos/icemex.png',
+    logoVariant: 'default',
+    color: '#fb923c',
+  },
+  {
     name: 'URBANIA',
     period: '2026',
     highlight: '🥈 2do Lugar — Talent Land 2026, Track IBM Ciudades Inteligentes',
