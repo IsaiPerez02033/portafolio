@@ -9,7 +9,11 @@ import { achievements } from '@/data/portfolio'
 const CARD_DESKTOP = 427.5
 const GAP = 24
 const AUTOPLAY_MS = 3000
+const TRANSITION_MS = 800
 const LEN = achievements.length
+
+/** Devuelve el índice equivalente dentro del set central, en [LEN, LEN*2). */
+const normalize = (i: number) => (((i - LEN) % LEN) + LEN) % LEN + LEN
 
 function QuoteMark() {
   return (
@@ -30,7 +34,7 @@ function QuoteMark() {
 }
 
 export default function AchievementsCarousel() {
-  const { ref, anim } = useInViewAnimation<HTMLElement>()
+  const { ref, inView, anim } = useInViewAnimation<HTMLElement>()
 
   // Triplicamos para poder saltar de set sin que se note el corte
   const items = [...achievements, ...achievements, ...achievements]
@@ -60,23 +64,35 @@ export default function AchievementsCarousel() {
     setIndex((i) => i - 1)
   }, [])
 
-  // Autoplay
+  // Autoplay — sólo con la sección a la vista: fuera de pantalla no aporta nada
+  // y el navegador ni siquiera ejecuta las transiciones.
   useEffect(() => {
-    if (paused) return
+    if (paused || !inView) return
     const id = setInterval(next, AUTOPLAY_MS)
     return () => clearInterval(id)
-  }, [paused, next])
+  }, [paused, inView, next])
 
-  // Al terminar la transición, si salimos del set central volvemos a él sin animar
-  const onTransitionEnd = () => {
-    if (index >= LEN * 2) {
-      setAnimating(false)
-      setIndex((i) => i - LEN)
-    } else if (index < LEN) {
-      setAnimating(false)
-      setIndex((i) => i + LEN)
+  // Cuando salimos del set central, saltamos de vuelta a su equivalente sin animar.
+  // El disparador es un temporizador y no `transitionend`: el navegador no arranca
+  // transiciones sobre contenido fuera de pantalla, así que ese evento podía no
+  // llegar nunca y el índice crecía sin límite hasta dejar el carrusel en blanco.
+  useEffect(() => {
+    if (index >= LEN * 2 || index < LEN) {
+      const t = setTimeout(() => {
+        setAnimating(false)
+        setIndex(normalize)
+      }, TRANSITION_MS)
+      return () => clearTimeout(t)
     }
-  }
+  }, [index])
+
+  // Rehabilita la animación en el frame siguiente al salto, para que el salto en sí
+  // no se vea.
+  useEffect(() => {
+    if (animating) return
+    const raf = requestAnimationFrame(() => setAnimating(true))
+    return () => cancelAnimationFrame(raf)
+  }, [animating])
 
   return (
     <section ref={ref} className="w-full py-20 overflow-hidden">
@@ -117,10 +133,9 @@ export default function AchievementsCarousel() {
               gap: `${GAP}px`,
               transform: `translateX(-${index * step}px)`,
               transition: animating
-                ? 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
+                ? `transform ${TRANSITION_MS}ms cubic-bezier(0.4, 0, 0.2, 1)`
                 : 'none',
             }}
-            onTransitionEnd={onTransitionEnd}
           >
             {items.map((a, i) => {
               const exiting = i < index
@@ -130,13 +145,17 @@ export default function AchievementsCarousel() {
                   aria-hidden={i < LEN || i >= LEN * 2}
                   className={clsx(
                     'shrink-0 bg-white rounded-[32px] md:rounded-[40px] shadow-card',
-                    'px-6 md:pl-10 md:pr-24 py-8',
-                    'transition-[opacity,transform] duration-700'
+                    'px-6 md:pl-10 md:pr-24 py-8'
                   )}
                   style={{
                     width: `${cardWidth}px`,
                     opacity: exiting ? 0 : 1,
                     transform: exiting ? 'scale(0.9)' : 'scale(1)',
+                    // En el frame del salto no animamos: si no, las tarjetas del set
+                    // nuevo se verían aparecer con un fundido delator.
+                    transition: animating
+                      ? 'opacity 700ms ease, transform 700ms ease'
+                      : 'none',
                   }}
                 >
                   <QuoteMark />

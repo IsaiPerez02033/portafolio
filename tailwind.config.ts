@@ -4,6 +4,9 @@ const config: Config = {
   content: [
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    // useInViewAnimation devuelve 'opacity-0'; sin este glob Tailwind no genera
+    // esa clase y el fade-in deja de ocultar nada antes de entrar al viewport
+    './src/hooks/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
