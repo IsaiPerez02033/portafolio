@@ -7,10 +7,9 @@
 [![Next.js](https://img.shields.io/badge/Next.js_14-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
-[![Framer Motion](https://img.shields.io/badge/Framer_Motion-black?style=for-the-badge&logo=framer&logoColor=white)](https://www.framer.com/motion/)
 [![Vercel](https://img.shields.io/badge/Deployed_on_Vercel-black?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
 
-[![Live Demo](https://img.shields.io/badge/🌐_Ver_sitio_en_vivo-00f5ff?style=for-the-badge)](https://portafolio-chi-tawny-37.vercel.app/)
+[![Live Demo](https://img.shields.io/badge/🌐_Ver_sitio_en_vivo-051A24?style=for-the-badge)](https://portafolio-chi-tawny-37.vercel.app/)
 
 </div>
 
@@ -18,24 +17,30 @@
 
 ## ✨ Vista general
 
-Portfolio profesional con diseño **dark cyberpunk**, optimizado para SEO y con animaciones fluidas. Construido con arquitectura **data-driven**: todo el contenido vive en un solo archivo TypeScript, sin tocar JSX para actualizar datos.
+Portfolio editorial sobre fondo blanco, con tipografía de gran escala, marquee infinito de
+capturas reales y micro-interacciones. Arquitectura **data-driven**: todo el contenido vive
+en un solo archivo TypeScript, sin tocar JSX para actualizar datos.
 
-**Secciones incluidas:**
+**Secciones:**
 
-- **Hero** — Presentación con efecto de escritura animado y fondo de red neuronal (tsParticles)
-- **Sobre mí** — Perfil, educación y highlights
-- **Skills** — 6 categorías con íconos tecnológicos reales (react-icons)
-- **Proyectos** — Cards expandibles con logos, insignias de premios y tags
-- **Logros** — Reconocimientos y hackathons
-- **Cursos** — Certificaciones con logos de emisores (Samsung, Oracle, Google Cloud)
-- **Contacto** — Formulario funcional integrado con Formspree
+- **Hero** — Columna angosta con presentación y CTA
+- **Marquee** — Tira infinita con capturas reales de proyectos
+- **Cita** — Frase de marca + formación, con foto en parallax
+- **Cómo trabajo** — Dos modalidades: freelance y colaboración
+- **Logros** — Carrusel auto-scroll con premios y certificaciones
+- **Proyectos** — Los tres destacados, con captura a ancho completo
+- **Más trabajo** — El resto del portafolio, en formato compacto
+- **Lo que uso** — Stack agrupado por categoría
+- **Partner** — CTA con rastro de miniaturas siguiendo el cursor
 
 ---
 
 ## 🏆 Destacado
 
-> 🥈 **2do Lugar — Talent Land 2026** · Track IBM Ciudades Inteligentes  
-> Proyecto **URBANIA** — Plataforma SaaS B2B de inteligencia urbana con IA generativa (IBM Watsonx + PostGIS)
+> 🥈 **2º Lugar — Talent Land 2026** · Track IBM Ciudades Resilientes
+> Proyecto **SUSVI** — Senderos Urbanos Seguros, Verdes e Inteligentes.
+> IA generativa (IBM Watsonx Granite) que convierte datos urbanos en planes de intervención.
+> [Demo en vivo](https://isaiperez02033.github.io/xolum/)
 
 ---
 
@@ -46,12 +51,11 @@ Portfolio profesional con diseño **dark cyberpunk**, optimizado para SEO y con 
 | Framework | Next.js 14 (App Router) |
 | Lenguaje | TypeScript |
 | Estilos | Tailwind CSS |
-| Animaciones | Framer Motion |
-| Partículas | tsParticles (red neuronal animada) |
-| Iconos | react-icons (Simple Icons, Feather, Tabler) |
-| Formulario | Formspree |
+| Animaciones | CSS keyframes + IntersectionObserver |
+| Iconos | lucide-react |
+| Tipografías | Geist + Instrument Serif |
 | Deploy | Vercel |
-| SEO | Next.js Metadata API + JSON-LD |
+| SEO | Next.js Metadata API + JSON-LD + OG dinámica |
 
 ---
 
@@ -60,33 +64,31 @@ Portfolio profesional con diseño **dark cyberpunk**, optimizado para SEO y con 
 ```
 src/
 ├── app/
-│   ├── layout.tsx          # Metadata SEO + JSON-LD Person Schema
-│   ├── page.tsx            # Composición de secciones
-│   ├── globals.css         # Estilos globales + cursor personalizado
-│   ├── sitemap.ts          # XML Sitemap automático
-│   └── robots.ts           # robots.txt
+│   ├── layout.tsx             # Metadata SEO + JSON-LD + fuentes
+│   ├── page.tsx               # Composición de secciones
+│   ├── globals.css            # Base, fuentes y animaciones
+│   ├── icon.svg               # Favicon
+│   ├── opengraph-image.tsx    # Imagen 1200x630 generada en runtime
+│   ├── sitemap.ts             # XML Sitemap automático
+│   └── robots.ts              # robots.txt
 ├── components/
-│   ├── CustomCursor.tsx    # Cursor dot + ring con efecto lerp
-│   ├── LogoImage.tsx       # Logos con soporte de variantes (invert/light-bg)
-│   ├── Navbar.tsx          # Navegación sticky con menú responsive
-│   ├── ParticleBackground.tsx  # Fondo de red neuronal animada
-│   ├── SectionTitle.tsx    # Encabezado reutilizable por sección
-│   └── TypingEffect.tsx    # Efecto de escritura cíclico
-├── sections/
-│   ├── Hero.tsx            # Sección principal (CTA + animaciones)
-│   ├── AboutMe.tsx         # Perfil, educación y estadísticas
-│   ├── Skills.tsx          # Grid de habilidades con íconos
-│   ├── Projects.tsx        # Proyectos con logos y badges
-│   ├── Achievements.tsx    # Logros y reconocimientos
-│   ├── Courses.tsx         # Certificaciones con logos de emisores
-│   └── Contact.tsx         # Formulario funcional (Formspree)
+│   ├── Hero.tsx               # Columna de presentación
+│   ├── Marquee.tsx            # Tira infinita de capturas
+│   ├── QuoteSection.tsx       # Cita + formación + foto en parallax
+│   ├── ServicesSection.tsx    # Tarjetas de "cómo trabajo"
+│   ├── AchievementsCarousel.tsx  # Carrusel infinito de logros
+│   ├── ProjectsSection.tsx    # Proyectos destacados
+│   ├── OtherProjects.tsx      # Resto del portafolio
+│   ├── Skills.tsx             # Stack por categoría
+│   ├── PartnerSection.tsx     # CTA con rastro de cursor
+│   ├── Footer.tsx             # Enlaces
+│   ├── CopyrightBar.tsx       # Línea final
+│   ├── BottomNav.tsx          # Píldora flotante
+│   └── Button.tsx             # 4 variantes reutilizables
 ├── data/
-│   └── portfolio.ts        # ← Fuente única de verdad (edita aquí)
-├── lib/
-│   ├── skillIcons.tsx      # Mapa skill → ícono + color
-│   └── utils.ts            # scrollToSection y helpers
+│   └── portfolio.ts           # ← Fuente única de verdad (edita aquí)
 └── hooks/
-    └── useScrollAnimation.ts
+    └── useInViewAnimation.ts  # Scroll-trigger con IntersectionObserver
 ```
 
 ---
@@ -94,23 +96,16 @@ src/
 ## 🚀 Instalación y desarrollo local
 
 ```bash
-# 1. Clonar el repositorio
 git clone https://github.com/IsaiPerez02033/portafolio.git
 cd portafolio
-
-# 2. Instalar dependencias
 npm install
-
-# 3. Ejecutar en modo desarrollo
 npm run dev
 ```
 
-Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
+Abre [http://localhost:3000](http://localhost:3000).
 
 ```bash
-# Build de producción
-npm run build
-npm start
+npm run build && npm start
 ```
 
 **Requisitos:** Node.js 18+
@@ -119,29 +114,41 @@ npm start
 
 ## ✏️ Personalización
 
-Todo el contenido está centralizado en **`src/data/portfolio.ts`** — edita ese archivo para actualizar cualquier dato sin tocar JSX.
+Todo el contenido está centralizado en **`src/data/portfolio.ts`**.
 
 ```ts
-// src/data/portfolio.ts
 export const personalInfo = {
   name: 'Tu Nombre',
   title: 'Tu título profesional',
   email: 'tu@email.com',
-  cvUrl: 'https://...',
   // ...
 }
 ```
 
-Para agregar proyectos, cursos o logros, modifica los arreglos `projects`, `courses` y `achievements` en el mismo archivo.
+Para cambiar proyectos, logros o skills, edita los arreglos `featuredProjects`,
+`otherProjects`, `achievements` y `skillGroups` en ese mismo archivo.
 
-**Logos de proyectos/educación:** coloca las imágenes en `public/logos/` y referencia la ruta en `portfolio.ts` con `logoImage: '/logos/archivo.png'`.
+**Capturas de proyectos:** van en `public/projects/` en `.webp`, referenciadas desde
+`marqueeImages` y `featuredProjects`.
+
+---
+
+## 🔤 Tipografías
+
+El diseño se concibió con **PP Neue Montreal** y **PP Mondwest** (Pangram Pangram, de pago).
+No están incluidas: son comerciales y el CDN público que las servía responde 403.
+
+En su lugar se usan dos equivalentes libres — **Geist** (auto-hospedada) e **Instrument
+Serif**. Si compras la licencia, deja los `.woff2` en `public/` y descomenta el bloque
+`@font-face` de `globals.css`: las pilas de `tailwind.config.ts` ya listan las PP primero,
+así que toman prioridad automáticamente.
 
 ---
 
 ## 🔍 SEO
 
 - ✅ Metadata optimizada (title, description, keywords)
-- ✅ Open Graph (LinkedIn, Facebook)
+- ✅ Open Graph con imagen 1200×630 generada en runtime
 - ✅ Twitter Cards
 - ✅ JSON-LD Person Schema
 - ✅ Sitemap XML automático (`/sitemap.xml`)
@@ -149,24 +156,26 @@ Para agregar proyectos, cursos o logros, modifica los arreglos `projects`, `cour
 - ✅ Canonical URL
 - ✅ Imágenes optimizadas con `next/image`
 
+> El canonical vive en `seoData.canonicalUrl` (`src/data/portfolio.ts`) y apunta al
+> despliegue de Vercel. Si registras un dominio propio, cámbialo ahí: alimenta el canonical,
+> el sitemap, el robots.txt y la metadata de Open Graph.
+
 ---
 
-## 📬 Formulario de contacto
+## 📬 Contacto
 
-El formulario está conectado a [Formspree](https://formspree.io). Para usar tu propio endpoint, cambia la URL en `src/sections/Contact.tsx`:
-
-```ts
-const res = await fetch('https://formspree.io/f/TU_ID', { ... })
-```
+Los botones "Hablemos" abren el cliente de correo vía `mailto:`, construido en
+`mailtoHref` (`src/data/portfolio.ts`).
 
 ---
 
 ## 📄 Licencia
 
-Este proyecto es de uso personal. Si lo usas como base para tu propio portfolio, se agradece un crédito o estrella ⭐ al repositorio.
+Este proyecto es de uso personal. Si lo usas como base para tu propio portfolio, se agradece
+un crédito o estrella ⭐ al repositorio.
 
 ---
 
 <div align="center">
-  <sub>Hecho con ☕ y TypeScript · <a href="https://isaiaram.dev">isaiaram.dev</a></sub>
+  <sub>Hecho con ☕ y TypeScript</sub>
 </div>

@@ -1,15 +1,20 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Instrument_Serif } from 'next/font/google'
+import { GeistSans } from 'geist/font/sans'
 import './globals.css'
 import { seoData, personalInfo } from '@/data/portfolio'
 
-const inter = Inter({
+// Sustitutas libres de PP Neue Montreal y PP Mondwest — ver nota en globals.css.
+// Geist viene del paquete oficial (auto-hospedada); next/font/google en Next 14
+// todavía no la conoce.
+const serif = Instrument_Serif({
   subsets: ['latin'],
+  weight: '400',
   display: 'swap',
-  variable: '--font-inter',
+  variable: '--font-serif',
 })
 
-// ─── SEO Metadata (seo-optimizer skill applied) ───────────────────────────────
+// ─── SEO Metadata ─────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
   metadataBase: new URL(seoData.canonicalUrl),
   title: {
@@ -29,7 +34,7 @@ export const metadata: Metadata = {
     canonical: seoData.canonicalUrl,
   },
 
-  // Open Graph
+  // Open Graph — la imagen la genera src/app/opengraph-image.tsx
   openGraph: {
     type: 'profile',
     locale: 'es_MX',
@@ -37,37 +42,19 @@ export const metadata: Metadata = {
     siteName: personalInfo.name,
     title: seoData.title,
     description: seoData.description,
-    images: [
-      {
-        url: seoData.ogImage,
-        width: 1200,
-        height: 630,
-        alt: `Foto de perfil de ${personalInfo.name} — ${personalInfo.title}`,
-      },
-    ],
     firstName: personalInfo.firstName,
     lastName: personalInfo.lastName,
     username: 'IsaiPerez02033',
-    gender: 'male',
   },
 
-  // Twitter / X Cards
   twitter: {
     card: 'summary_large_image',
     title: seoData.title,
     description: seoData.description,
-    images: [seoData.ogImage],
-    creator: '@IsaiAram',
-  },
-
-  // Icons
-  icons: {
-    icon: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
   },
 }
 
-// ─── JSON-LD Person Schema (seo-optimizer: structured data) ──────────────────
+// ─── JSON-LD Person Schema ────────────────────────────────────────────────────
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
@@ -75,23 +62,21 @@ const jsonLd = {
   url: seoData.canonicalUrl,
   email: personalInfo.email,
   telephone: personalInfo.phone,
-  image: `${seoData.canonicalUrl}/profile.jpg`,
+  image: `${seoData.canonicalUrl}${personalInfo.profileImage}`,
   jobTitle: personalInfo.title,
   description: seoData.description,
-  nationality: {
-    '@type': 'Country',
-    name: 'Mexico',
-  },
+  nationality: { '@type': 'Country', name: 'Mexico' },
   address: {
     '@type': 'PostalAddress',
     addressCountry: 'MX',
     addressLocality: personalInfo.location,
   },
-  sameAs: [
-    personalInfo.linkedin,
-    personalInfo.github,
-  ],
+  sameAs: [personalInfo.linkedin, personalInfo.github],
   knowsAbout: seoData.keywords,
+  worksFor: {
+    '@type': 'Organization',
+    name: personalInfo.studio,
+  },
   alumniOf: {
     '@type': 'EducationalOrganization',
     name: 'ESCOM – Instituto Politécnico Nacional',
@@ -105,25 +90,18 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="es-MX" className={inter.variable} suppressHydrationWarning>
+    <html
+      lang="es-MX"
+      className={`${GeistSans.variable} ${serif.variable}`}
+      suppressHydrationWarning
+    >
       <head>
-        {/* Preconnect to Google Fonts for performance (Core Web Vitals) */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-
-        {/* JSON-LD structured data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="bg-[#0a0a0a] text-gray-100 font-sans overflow-x-hidden">
-        {children}
-      </body>
+      <body className="bg-white text-ink font-sans overflow-x-hidden">{children}</body>
     </html>
   )
 }
