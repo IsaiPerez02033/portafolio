@@ -66,6 +66,7 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: personalInfo.name,
+  alternateName: personalInfo.legalName,
   url: seoData.canonicalUrl,
   email: personalInfo.email,
   telephone: personalInfo.phone,

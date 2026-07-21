@@ -4,10 +4,13 @@
 // ============================================================
 
 export const personalInfo = {
-  name: 'Isai Aram Pérez Flores',
-  shortName: 'Isai Aram',
-  firstName: 'Isai Aram',
-  lastName: 'Pérez Flores',
+  name: 'Aram Pérez',
+  // Nombre legal completo: sólo para datos estructurados (alternateName), no se
+  // muestra. Conserva el vínculo con quien lo busque por su nombre completo.
+  legalName: 'Isai Aram Pérez Flores',
+  shortName: 'Aram Pérez',
+  firstName: 'Aram',
+  lastName: 'Pérez',
   studio: 'XOLUM',
   title: 'AI Engineer & Backend Developer',
   location: 'Ciudad de México, México',
@@ -36,7 +39,7 @@ export const gmailComposeHref = `https://mail.google.com/mail/?view=cm&fs=1&to=$
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 export const hero = {
-  tagline: 'El estudio de software de Isai Aram',
+  tagline: 'El estudio de software de Aram Pérez',
   // Cada línea se parte en dos: la segunda mitad va en la serif de acento
   headingLines: [
     { plain: 'Del ', accent: 'prototipo,' },
@@ -66,7 +69,7 @@ export const quote = {
   plain: 'Fundé ',
   accent: 'XOLUM',
   rest: ' para construir el estudio con el que siempre quise trabajar',
-  author: 'Isai Aram Pérez',
+  author: 'Aram Pérez',
   // Formación y programas — NO son clientes. La etiqueta lo deja explícito.
   affiliationsLabel: 'Formación y programas',
   affiliations: [
@@ -283,7 +286,7 @@ export const socials: Social[] = [
 
 // ─── SEO ──────────────────────────────────────────────────────────────────────
 export const seoData = {
-  title: 'Isai Aram Pérez — AI Engineer & Backend Developer',
+  title: 'Aram Pérez — AI Engineer & Backend Developer',
   description:
     'Estudiante de IA en IPN ESCOM y fundador de XOLUM · 2º lugar Talent Land 2026 · Construyo sitios, plataformas SaaS y sistemas con IA en producción. Python, Next.js, NestJS, IBM Watsonx.',
   keywords: [
@@ -292,6 +295,8 @@ export const seoData = {
     'Python developer',
     'IPN ESCOM',
     'backend developer',
+    'Aram Pérez',
+    // Nombre completo como término de búsqueda, aunque ya no se muestre
     'Isai Aram Pérez',
     'inteligencia artificial',
     'IBM Watsonx',
