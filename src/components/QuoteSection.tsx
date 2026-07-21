@@ -17,7 +17,7 @@ export default function QuoteSection() {
       <blockquote
         className={clsx(
           anim,
-          'mt-4 text-[32px] md:text-[40px] lg:text-[44px] leading-[1.1] text-ink-2 tracking-tight'
+          'mt-4 text-[32px] md:text-[40px] lg:text-[44px] leading-[1.1] text-paper-1 tracking-tight'
         )}
         style={delay(0.2)}
       >

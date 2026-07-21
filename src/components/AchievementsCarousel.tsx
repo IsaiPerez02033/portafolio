@@ -23,7 +23,7 @@ function QuoteMark() {
       viewBox="0 0 28 22"
       fill="none"
       aria-hidden
-      className="text-ink-2/15"
+      className="text-paper-2/25"
     >
       <path
         d="M0 22V13.2C0 5.9 4.2 1.1 11.5 0l1.3 3.6C8.4 4.7 6 7.2 6 10.6h5.2V22H0Zm16.5 0V13.2C16.5 5.9 20.7 1.1 28 0l1.3 3.6c-4.4 1.1-6.8 3.6-6.8 7h5.2V22H16.5Z"
@@ -106,7 +106,7 @@ export default function AchievementsCarousel() {
           <h2
             className={clsx(
               anim,
-              'text-[32px] md:text-[40px] lg:text-[44px] leading-[1.1] text-ink-2 tracking-tight'
+              'text-[32px] md:text-[40px] lg:text-[44px] leading-[1.1] text-paper-1 tracking-tight'
             )}
             style={delay(0.1)}
           >
@@ -117,8 +117,8 @@ export default function AchievementsCarousel() {
             className={clsx(anim, 'flex items-center gap-2 shrink-0')}
             style={delay(0.2)}
           >
-            <Award className="w-5 h-5 text-ink-2" aria-hidden />
-            <span className="text-sm text-ink-2">2º lugar · Talent Land 2026</span>
+            <Award className="w-5 h-5 text-paper-1" aria-hidden />
+            <span className="text-sm text-paper-1">2º lugar · Talent Land 2026</span>
           </div>
         </div>
       </div>
@@ -148,7 +148,7 @@ export default function AchievementsCarousel() {
                   key={`${a.name}-${i}`}
                   aria-hidden={i < LEN || i >= LEN * 2}
                   className={clsx(
-                    'shrink-0 bg-white rounded-[32px] md:rounded-[40px] shadow-card',
+                    'shrink-0 bg-ink-2/70 backdrop-blur-md rounded-[32px] md:rounded-[40px] shadow-card',
                     'px-6 md:pl-10 md:pr-24 py-8'
                   )}
                   style={{
@@ -164,7 +164,7 @@ export default function AchievementsCarousel() {
                 >
                   <QuoteMark />
 
-                  <p className="mt-4 text-base text-ink-2 leading-relaxed">{a.text}</p>
+                  <p className="mt-4 text-base text-paper-1 leading-relaxed">{a.text}</p>
 
                   <div className="mt-6 flex items-center gap-3">
                     <span
@@ -177,7 +177,7 @@ export default function AchievementsCarousel() {
                       {a.icon}
                     </span>
                     <div className="min-w-0">
-                      <p className="font-semibold text-sm text-ink-2">{a.name}</p>
+                      <p className="font-semibold text-sm text-paper-1">{a.name}</p>
                       <p className="text-xs text-muted truncate">
                         <span aria-hidden>→ </span>
                         {a.issuer} · {a.year}
@@ -196,7 +196,7 @@ export default function AchievementsCarousel() {
             type="button"
             onClick={prev}
             aria-label="Logro anterior"
-            className="w-12 h-12 rounded-full border border-ink-2/20 flex items-center justify-center text-ink-2 hover:bg-ink-2/5 transition-colors"
+            className="w-12 h-12 rounded-full border border-paper-1/20 flex items-center justify-center text-paper-1 hover:bg-paper-1/10 transition-colors"
           >
             <ChevronLeft className="w-5 h-5" aria-hidden />
           </button>
@@ -204,7 +204,7 @@ export default function AchievementsCarousel() {
             type="button"
             onClick={next}
             aria-label="Siguiente logro"
-            className="w-12 h-12 rounded-full border border-ink-2/20 flex items-center justify-center text-ink-2 hover:bg-ink-2/5 transition-colors"
+            className="w-12 h-12 rounded-full border border-paper-1/20 flex items-center justify-center text-paper-1 hover:bg-paper-1/10 transition-colors"
           >
             <ChevronRight className="w-5 h-5" aria-hidden />
           </button>

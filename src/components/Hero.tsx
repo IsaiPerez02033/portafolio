@@ -17,7 +17,7 @@ export default function Hero() {
           <h1
             className={clsx(
               anim,
-              'font-serif text-[32px] md:text-[40px] lg:text-[44px] font-semibold text-ink tracking-tight mb-4'
+              'font-serif text-[32px] md:text-[40px] lg:text-[44px] font-semibold text-paper-1 tracking-tight mb-4'
             )}
             style={delay(0.1)}
           >
@@ -25,7 +25,7 @@ export default function Hero() {
           </h1>
 
           <p
-            className={clsx(anim, 'font-mono text-xs md:text-sm text-ink mb-2')}
+            className={clsx(anim, 'font-mono text-xs md:text-sm text-paper-1 mb-2')}
             style={delay(0.2)}
           >
             {hero.tagline}
@@ -34,7 +34,7 @@ export default function Hero() {
           <p
             className={clsx(
               anim,
-              'text-[32px] md:text-[40px] lg:text-[44px] leading-[1.1] text-ink-2 tracking-tight whitespace-nowrap'
+              'text-[32px] md:text-[40px] lg:text-[44px] leading-[1.1] text-paper-1 tracking-tight whitespace-nowrap'
             )}
             style={delay(0.3)}
           >
@@ -49,7 +49,7 @@ export default function Hero() {
           <div
             className={clsx(
               anim,
-              'flex flex-col gap-6 mt-5 md:mt-6 text-sm md:text-base text-ink leading-relaxed'
+              'flex flex-col gap-6 mt-5 md:mt-6 text-sm md:text-base text-paper-1 leading-relaxed'
             )}
             style={delay(0.4)}
           >
@@ -69,8 +69,10 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Foto */}
-        <div className={clsx(anim, 'w-full max-w-xs shrink-0')} style={delay(0.6)}>
+        {/* Foto — la original es clara y sobre el fondo oscuro saltaba como un
+            recorte. Se integra bajando su brillo y fundiendo el borde inferior
+            en el ink del fondo, con el acento marcando el filo. */}
+        <div className={clsx(anim, 'relative w-full max-w-xs shrink-0')} style={delay(0.6)}>
           <Image
             src={personalInfo.profileImage}
             alt={`${personalInfo.name} — ${personalInfo.title}`}
@@ -78,7 +80,15 @@ export default function Hero() {
             height={1139}
             priority
             sizes="(max-width: 768px) 100vw, 320px"
-            className="w-full rounded-2xl shadow-lg"
+            className="w-full rounded-2xl ring-1 ring-paper-1/15 shadow-card brightness-[0.82] contrast-[1.08] saturate-[0.85]"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-t from-ink via-ink/25 to-transparent"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-beam/10 to-pulse/10 mix-blend-overlay"
           />
         </div>
       </div>

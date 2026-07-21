@@ -14,12 +14,14 @@ interface ButtonProps {
   className?: string
 }
 
+// Invertidos: sobre el fondo oscuro el botón sólido va en claro, y los
+// secundarios son vidrio para que la lluvia se siga viendo por detrás.
 const variants: Record<Variant, string> = {
-  primary: 'bg-ink text-white shadow-primary',
-  secondary: 'bg-white text-ink shadow-secondary',
-  tertiary: 'bg-white text-ink shadow-[0_0_0_0.5px_rgba(0,0,0,0.05),0_4px_30px_rgba(0,0,0,0.08),0_4px_16px_rgba(0,0,0,0.08)]',
-  // sobre la tarjeta oscura, donde un botón #051A24 se perdería contra el fondo
-  ghost: 'bg-transparent text-paper-2 border border-white/20 hover:border-white/40',
+  primary: 'bg-paper-1 text-ink shadow-primary hover:shadow-glow',
+  secondary:
+    'bg-paper-1/10 text-paper-1 border border-paper-1/25 backdrop-blur-sm hover:bg-paper-1/20',
+  tertiary: 'bg-ink-2/70 text-paper-1 border border-paper-1/15 backdrop-blur-sm hover:border-pulse/50',
+  ghost: 'bg-transparent text-paper-2 border border-paper-1/20 hover:border-paper-1/40',
 }
 
 export default function Button({
@@ -40,7 +42,7 @@ export default function Button({
         'inline-flex items-center justify-center gap-2 rounded-full px-7 py-3',
         'text-sm font-medium whitespace-nowrap',
         'transition-transform duration-200 hover:scale-[1.03] active:scale-[0.98]',
-        'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink',
+        'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pulse',
         variants[variant],
         className
       )}

@@ -14,7 +14,7 @@ function ProjectItem({ project }: { project: Project }) {
     <article ref={ref}>
       <div className={clsx(anim, 'ml-20 md:ml-28')} style={delay(0.1)}>
         <div className="flex items-baseline gap-3 flex-wrap">
-          <h3 className="font-serif text-2xl md:text-3xl font-semibold text-ink">
+          <h3 className="font-serif text-2xl md:text-3xl font-semibold text-paper-1">
             {project.name}
           </h3>
           {project.href && (
@@ -22,14 +22,14 @@ function ProjectItem({ project }: { project: Project }) {
               href={project.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-0.5 text-xs font-mono text-ink/50 hover:text-ink transition-colors"
+              className="inline-flex items-center gap-0.5 text-xs font-mono text-paper-2/65 hover:text-paper-1 transition-colors"
             >
               {project.hrefLabel}
               <ArrowUpRight className="w-3 h-3" aria-hidden />
             </a>
           )}
         </div>
-        <p className="mt-2 max-w-xl text-sm md:text-base text-ink/70 leading-relaxed">
+        <p className="mt-2 max-w-xl text-sm md:text-base text-paper-2/70 leading-relaxed">
           {project.description}
         </p>
       </div>

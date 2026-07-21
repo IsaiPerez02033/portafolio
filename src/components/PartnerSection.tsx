@@ -72,7 +72,7 @@ export default function PartnerSection() {
         onMouseLeave={() => setTrails([])}
         className={clsx(
           anim,
-          'relative max-w-7xl mx-auto py-48 rounded-[40px] bg-white shadow-secondary overflow-hidden'
+          'relative max-w-7xl mx-auto py-48 rounded-[40px] bg-ink-2/40 backdrop-blur-md border border-paper-1/10 shadow-secondary overflow-hidden'
         )}
         style={delay(0.1)}
       >
@@ -98,7 +98,7 @@ export default function PartnerSection() {
 
         {/* Contenido */}
         <div className="relative z-10 flex flex-col items-center pointer-events-none">
-          <h2 className="font-serif text-[48px] md:text-[64px] lg:text-[80px] leading-none text-ink-2 text-center mb-12">
+          <h2 className="font-serif text-[48px] md:text-[64px] lg:text-[80px] leading-none text-paper-1 text-center mb-12">
             Trabajemos juntos
           </h2>
 
@@ -106,7 +106,7 @@ export default function PartnerSection() {
             <a
               href={mailtoHref}
               onClick={onContactClick}
-              className="inline-flex items-center gap-3 rounded-full bg-ink text-white shadow-primary pl-2 pr-7 py-2 text-sm font-medium transition-transform duration-200 hover:scale-[1.03] active:scale-[0.98]"
+              className="inline-flex items-center gap-3 rounded-full bg-paper-1 text-ink shadow-primary pl-2 pr-7 py-2 text-sm font-medium transition-all duration-200 hover:scale-[1.03] hover:shadow-glow active:scale-[0.98]"
             >
               <Image
                 src={personalInfo.profileImage}

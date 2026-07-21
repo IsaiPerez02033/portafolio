@@ -20,11 +20,11 @@ export default function OpengraphImage() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          background: '#ffffff',
+          background: 'linear-gradient(135deg, #051A24 0%, #0D212C 100%)',
           padding: '80px',
         }}
       >
-        <div style={{ display: 'flex', fontSize: 26, color: '#273C46' }}>
+        <div style={{ display: 'flex', fontSize: 26, color: '#7E97A3' }}>
           {personalInfo.studio} · {personalInfo.location}
         </div>
 
@@ -33,7 +33,7 @@ export default function OpengraphImage() {
             display: 'flex',
             fontSize: 78,
             fontWeight: 600,
-            color: '#051A24',
+            color: '#F6FCFF',
             letterSpacing: '-0.03em',
             marginTop: 24,
           }}
@@ -45,7 +45,7 @@ export default function OpengraphImage() {
           style={{
             display: 'flex',
             fontSize: 40,
-            color: '#0D212C',
+            color: '#E0EBF0',
             marginTop: 12,
           }}
         >
@@ -56,7 +56,7 @@ export default function OpengraphImage() {
           style={{
             display: 'flex',
             fontSize: 26,
-            color: '#273C46',
+            color: '#7E97A3',
             marginTop: 40,
           }}
         >
@@ -68,7 +68,7 @@ export default function OpengraphImage() {
             display: 'flex',
             width: 120,
             height: 6,
-            background: '#051A24',
+            background: 'linear-gradient(90deg, #1A4DE6, #1ACC80)',
             borderRadius: 3,
             marginTop: 48,
           }}

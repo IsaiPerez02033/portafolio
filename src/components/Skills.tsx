@@ -12,7 +12,7 @@ export default function Skills() {
       <h2
         className={clsx(
           anim,
-          'text-[32px] md:text-[40px] lg:text-[44px] leading-[1.1] text-ink-2 tracking-tight'
+          'text-[32px] md:text-[40px] lg:text-[44px] leading-[1.1] text-paper-1 tracking-tight'
         )}
         style={delay(0.1)}
       >
@@ -23,13 +23,13 @@ export default function Skills() {
         {skillGroups.map((g, i) => (
           <div
             key={g.category}
-            className={clsx(anim, 'border-t border-ink/10 pt-5')}
+            className={clsx(anim, 'border-t border-paper-1/12 pt-5')}
             style={delay(0.15 + i * 0.05)}
           >
-            <dt className="font-mono text-[11px] uppercase tracking-widest text-ink/40">
+            <dt className="font-mono text-[11px] uppercase tracking-widest text-paper-2/60">
               {g.category}
             </dt>
-            <dd className="mt-3 text-base text-ink/80 leading-relaxed">
+            <dd className="mt-3 text-base text-paper-2/80 leading-relaxed">
               {g.skills.join(' · ')}
             </dd>
           </div>

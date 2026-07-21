@@ -1,3 +1,4 @@
+import MatrixBackground from '@/components/MatrixBackground'
 import Hero from '@/components/Hero'
 import Marquee from '@/components/Marquee'
 import QuoteSection from '@/components/QuoteSection'
@@ -13,6 +14,8 @@ import CopyrightBar from '@/components/CopyrightBar'
 export default function Home() {
   return (
     <>
+      <MatrixBackground />
+
       <main>
         <Hero />
         <Marquee />

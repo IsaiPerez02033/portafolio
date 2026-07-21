@@ -22,7 +22,9 @@ export default function ServicesSection() {
           className={clsx(
             anim,
             CARD,
-            'bg-ink shadow-[inset_0_2px_20px_0_rgba(255,255,255,0.06)]'
+            // Antes se distinguían por claro/oscuro. Sobre fondo oscuro eso ya no
+            // sirve: la principal se marca con el acento, la otra queda neutra.
+            'bg-ink-2/80 backdrop-blur-md border border-pulse/25 shadow-glow'
           )}
           style={delay(0.1)}
         >
@@ -50,11 +52,11 @@ export default function ServicesSection() {
 
         {/* Colaboración */}
         <article
-          className={clsx(anim, CARD, 'bg-white shadow-card')}
+          className={clsx(anim, CARD, 'bg-ink-2/50 backdrop-blur-md border border-paper-1/10 shadow-card')}
           style={delay(0.2)}
         >
-          <h3 className="text-[22px] font-medium text-ink pt-7">{light.title}</h3>
-          <p className="mt-3 text-sm text-ink/60 leading-relaxed">
+          <h3 className="text-[22px] font-medium text-paper-1 pt-7">{light.title}</h3>
+          <p className="mt-3 text-sm text-paper-2/60 leading-relaxed">
             {light.description.map((line) => (
               <span key={line} className="block">
                 {line}
@@ -62,8 +64,8 @@ export default function ServicesSection() {
             ))}
           </p>
 
-          <p className="mt-8 text-2xl text-ink-2">{light.value}</p>
-          <p className="text-sm text-ink/50">{light.valueLabel}</p>
+          <p className="mt-8 text-2xl text-paper-1">{light.value}</p>
+          <p className="text-sm text-paper-2/65">{light.valueLabel}</p>
 
           <div className="mt-8">
             <Button href={mailtoHref} variant="tertiary">

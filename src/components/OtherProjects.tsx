@@ -13,7 +13,7 @@ export default function OtherProjects() {
       <h2
         className={clsx(
           anim,
-          'text-[32px] md:text-[40px] lg:text-[44px] leading-[1.1] text-ink-2 tracking-tight'
+          'text-[32px] md:text-[40px] lg:text-[44px] leading-[1.1] text-paper-1 tracking-tight'
         )}
         style={delay(0.1)}
       >
@@ -24,25 +24,25 @@ export default function OtherProjects() {
         {otherProjects.map((p, i) => (
           <article
             key={p.name}
-            className={clsx(anim, 'border-t border-ink/10 pt-5')}
+            className={clsx(anim, 'border-t border-paper-1/12 pt-5')}
             style={delay(0.15 + i * 0.05)}
           >
             <div className="flex items-baseline gap-3 flex-wrap">
-              <h3 className="font-serif text-xl font-semibold text-ink">{p.name}</h3>
+              <h3 className="font-serif text-xl font-semibold text-paper-1">{p.name}</h3>
               {p.href && (
                 <a
                   href={p.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-0.5 text-xs font-mono text-ink/50 hover:text-ink transition-colors"
+                  className="inline-flex items-center gap-0.5 text-xs font-mono text-paper-2/65 hover:text-paper-1 transition-colors"
                 >
                   {p.hrefLabel}
                   <ArrowUpRight className="w-3 h-3" aria-hidden />
                 </a>
               )}
             </div>
-            <p className="mt-2 text-sm text-ink/70 leading-relaxed">{p.description}</p>
-            <p className="mt-3 font-mono text-[11px] text-ink/40">{p.stack}</p>
+            <p className="mt-2 text-sm text-paper-2/70 leading-relaxed">{p.description}</p>
+            <p className="mt-3 font-mono text-[11px] text-paper-2/60">{p.stack}</p>
           </article>
         ))}
       </div>

@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Instrument_Serif } from 'next/font/google'
 import { GeistSans } from 'geist/font/sans'
 import './globals.css'
@@ -54,6 +54,13 @@ export const metadata: Metadata = {
   },
 }
 
+// La barra del navegador en móvil y los controles nativos (scrollbars, campos)
+// se pintan en oscuro; si no, aparece una franja blanca sobre el sitio.
+export const viewport: Viewport = {
+  themeColor: '#051A24',
+  colorScheme: 'dark',
+}
+
 // ─── JSON-LD Person Schema ────────────────────────────────────────────────────
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -101,7 +108,8 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="bg-white text-ink font-sans overflow-x-hidden">{children}</body>
+      {/* Sin color de fondo: lo pinta el shader detrás, y un fondo aquí lo taparía */}
+      <body className="text-paper-1 font-sans overflow-x-hidden">{children}</body>
     </html>
   )
 }

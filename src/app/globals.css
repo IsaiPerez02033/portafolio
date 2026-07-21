@@ -43,22 +43,26 @@
 }
 
 html {
+  /* Mismo ink que la base del shader: cubre el arranque y el caso sin WebGL */
+  background-color: #051a24;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background-color: #ffffff;
-  color: #051a24;
+  /* Transparente a propósito: un fondo opaco aquí taparía el lienzo del
+     shader, que se pinta detrás con z-index -1 */
+  background-color: transparent;
+  color: #f6fcff;
   font-family: 'PP Neue Montreal', var(--font-geist-sans), system-ui, -apple-system, sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
 }
 
 ::selection {
-  background: #051a2415;
-  color: #051a24;
+  background: #1acc8033;
+  color: #f6fcff;
 }
 
 /* ── Animaciones ── */

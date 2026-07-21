@@ -10,7 +10,7 @@ export default function BottomNav() {
       <div className="flex items-center gap-5 rounded-full bg-white px-8 py-2 shadow-[0_1px_2px_0_rgba(5,26,36,0.1),0_4px_10px_0_rgba(5,26,36,0.08),0_12px_30px_0_rgba(5,26,36,0.08),inset_0_1px_0_0_rgba(255,255,255,0.9)]">
         <a
           href="#inicio"
-          className="font-serif text-2xl font-semibold text-ink leading-none"
+          className="font-serif text-2xl font-semibold text-paper-1 leading-none"
           aria-label="Ir al inicio"
         >
           I
