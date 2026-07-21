@@ -34,12 +34,14 @@ function ProjectItem({ project }: { project: Project }) {
         </p>
       </div>
 
-      <div className={clsx(anim, 'mt-6')} style={delay(0.2)}>
+      {/* Misma sangría que el texto, para que captura y título compartan eje */}
+      <div className={clsx(anim, 'mt-6 ml-20 md:ml-28 max-w-3xl')} style={delay(0.2)}>
         <Image
           src={project.image}
           alt={`Captura del proyecto ${project.name}`}
           width={1600}
           height={1000}
+          sizes="(max-width: 768px) 100vw, 768px"
           className="w-full rounded-2xl shadow-lg object-cover"
         />
       </div>

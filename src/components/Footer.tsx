@@ -1,19 +1,17 @@
 import { ArrowUpRight } from 'lucide-react'
-import Button from '@/components/Button'
-import { footerLinks, mailtoHref } from '@/data/portfolio'
+import SocialIcon from '@/components/SocialIcons'
+import { footerLinks, socials } from '@/data/portfolio'
 
 const linkClass = 'text-base text-ink hover:opacity-70 transition-opacity'
 
 export default function Footer() {
   return (
     <footer className="w-full py-12 px-6">
-      <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row md:items-start md:justify-between gap-10">
-        <Button href={mailtoHref}>Hablemos</Button>
-
+      <div className="max-w-[1200px] mx-auto">
         <div className="flex items-start gap-6">
           <ArrowUpRight className="w-5 h-5 text-ink mt-0.5 shrink-0" aria-hidden />
 
-          <nav className="flex gap-16" aria-label="Enlaces del pie">
+          <nav className="flex flex-col gap-8" aria-label="Enlaces del pie">
             <ul className="flex flex-col gap-2">
               {footerLinks.internal.map((l) => (
                 <li key={l.label}>
@@ -24,16 +22,32 @@ export default function Footer() {
               ))}
             </ul>
 
-            <ul className="flex flex-col gap-2">
-              {footerLinks.external.map((l) => (
-                <li key={l.label}>
+            <ul className="flex items-center gap-3">
+              {socials.map((s) => (
+                <li key={s.label}>
                   <a
-                    href={l.href}
+                    href={s.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={linkClass}
+                    aria-label={s.label}
+                    className={[
+                      'group relative flex items-center justify-center w-11 h-11 rounded-full',
+                      'border border-ink/15 text-ink/60',
+                      'transition-all duration-200 ease-out',
+                      'hover:bg-ink hover:border-ink hover:text-paper-1',
+                      'hover:-translate-y-0.5 hover:shadow-card motion-reduce:transform-none',
+                      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2',
+                    ].join(' ')}
                   >
-                    {l.label}
+                    <SocialIcon icon={s.icon} className="w-[18px] h-[18px]" />
+                    {/* Etiqueta al pasar el cursor; oculta al lector de pantalla
+                        porque el aria-label del enlace ya la dice */}
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[11px] text-ink/50 opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+                    >
+                      {s.label}
+                    </span>
                   </a>
                 </li>
               ))}

@@ -29,15 +29,9 @@ const config: Config = {
         secondary: '0 0 0 0.5px rgba(0,0,0,0.05), 0 4px 30px rgba(0,0,0,0.08)',
         card: '0 4px 16px rgba(0,0,0,0.08)',
       },
-      animation: {
-        marquee: 'marquee 30s linear infinite',
-      },
-      keyframes: {
-        marquee: {
-          '0%': { transform: 'translateX(0)' },
-          '100%': { transform: 'translateX(-50%)' },
-        },
-      },
+      // `animate-marquee` y sus keyframes viven sólo en globals.css: ahí la
+      // duración cambia con el breakpoint. Definirlos también aquí creaba una
+      // clase duplicada, con un desplazamiento distinto al real.
     },
   },
   plugins: [],

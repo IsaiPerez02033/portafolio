@@ -2,11 +2,16 @@ import Image from 'next/image'
 import { marqueeImages } from '@/data/portfolio'
 
 /**
- * Tira infinita de capturas. El set se duplica y la animación recorre -50%,
- * de modo que el segundo set queda exactamente donde arrancó el primero.
+ * Tira infinita de capturas. El set se repite 3 veces y la animación recorre
+ * -33.333% (el ancho de un set), así el siguiente queda exactamente donde
+ * arrancó el anterior.
+ *
+ * Con sólo 2 copias el bucle exige que un set sea más ancho que el viewport;
+ * con las capturas ya reducidas eso dejaba de cumplirse en pantallas anchas y
+ * asomaba un hueco. Con 3 copias basta con la mitad, y sobra margen.
  */
 export default function Marquee() {
-  const strip = [...marqueeImages, ...marqueeImages]
+  const strip = [...marqueeImages, ...marqueeImages, ...marqueeImages]
 
   return (
     <section
@@ -23,7 +28,8 @@ export default function Marquee() {
             width={1600}
             height={1000}
             priority={i === 0}
-            className="h-[280px] md:h-[500px] w-auto max-w-none object-cover mx-3 rounded-2xl shadow-lg"
+            sizes="(max-width: 768px) 256px, 384px"
+            className="h-[160px] md:h-[240px] w-auto max-w-none object-cover mx-3 rounded-2xl shadow-lg"
           />
         ))}
       </div>

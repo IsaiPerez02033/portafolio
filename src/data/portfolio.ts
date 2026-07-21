@@ -13,8 +13,9 @@ export const personalInfo = {
   location: 'Ciudad de México, México',
   email: 'isaipz0510@gmail.com',
   phone: '+52 56 4591 5734',
-  linkedin: 'https://linkedin.com/in/isai-aram-perez-604b67298',
+  linkedin: 'https://www.linkedin.com/in/isai-aram-perez-604b67298/',
   github: 'https://github.com/IsaiPerez02033',
+  instagram: 'https://www.instagram.com/_aramperez/',
   profileImage: '/profile.webp',
   cvUrl: 'https://drive.google.com/file/d/1pgUDKkR3rwAnI0jIfzM7bCIrAwB9J3D1/view?usp=drive_link',
 } as const
@@ -107,32 +108,47 @@ export const featuredProjects: Project[] = [
     hrefLabel: 'icemex.mx',
   },
   {
-    name: 'SUSVI',
+    name: 'Beel',
     description:
-      'IA generativa que convierte datos urbanos en planes de senderos peatonales seguros. 2º lugar en Talent Land 2026.',
-    image: '/projects/susvi.webp',
-    href: 'https://isaiperez02033.github.io/xolum/',
-    hrefLabel: 'Ver demo',
+      'Marketplace de hospedaje con anfitriones locales en México y Kukul, un planificador de viajes con IA.',
+    image: '/projects/beel.webp',
+    href: 'https://www.beel-mx.com/',
+    hrefLabel: 'beel-mx.com',
   },
   {
     name: 'Nicté',
     description:
       'Plataforma legal con RAG sobre la ley mexicana, con capa de seguridad contra alucinación de citas.',
     image: '/projects/nicte.webp',
+    href: 'https://nicte.net/',
+    hrefLabel: 'nicte.net',
   },
 ]
 
 // ─── Otros proyectos ──────────────────────────────────────────────────────────
-export const otherProjects: { name: string; description: string; stack: string }[] = [
+export interface OtherProject {
+  name: string
+  description: string
+  stack: string
+  href?: string
+  hrefLabel?: string
+}
+
+export const otherProjects: OtherProject[] = [
   {
     name: 'CARHEMA',
     description: 'Landing inmersiva donde una residencia se construye en 3D al hacer scroll.',
     stack: 'Three.js · GSAP',
+    href: 'https://carhema-page.vercel.app/',
+    hrefLabel: 'Ver demo',
   },
   {
-    name: 'Beel',
-    description: 'Marketplace de hospedaje con anfitriones locales y planificador con IA.',
-    stack: 'Next.js · FastAPI · Postgres',
+    name: 'SUSVI',
+    description:
+      'IA generativa que convierte datos urbanos en planes de senderos peatonales seguros. 2º lugar en Talent Land 2026.',
+    stack: 'React · IBM Watsonx · Leaflet · FastAPI',
+    href: 'https://isaiperez02033.github.io/xolum/',
+    hrefLabel: 'Ver demo',
   },
   {
     name: 'ICEMEX Almacén',
@@ -148,6 +164,8 @@ export const otherProjects: { name: string; description: string; stack: string }
     name: 'Kinara',
     description: 'E-commerce de luminarias diseñadas e impresas en 3D, de la marca al checkout.',
     stack: 'PHP · JavaScript',
+    href: 'https://kinaramx.com/',
+    hrefLabel: 'kinaramx.com',
   },
   {
     name: 'Predicción cardiovascular',
@@ -237,11 +255,21 @@ export const footerLinks = {
     { label: 'Proyectos', href: '#proyectos' },
     { label: 'Sobre mí', href: '#inicio' },
   ],
-  external: [
-    { label: 'GitHub', href: personalInfo.github },
-    { label: 'LinkedIn', href: personalInfo.linkedin },
-  ],
 }
+
+// ─── Redes sociales ───────────────────────────────────────────────────────────
+// `icon` empareja con el mapa de SocialIcons.tsx
+export interface Social {
+  label: string
+  href: string
+  icon: 'github' | 'linkedin' | 'instagram'
+}
+
+export const socials: Social[] = [
+  { label: 'GitHub', href: personalInfo.github, icon: 'github' },
+  { label: 'LinkedIn', href: personalInfo.linkedin, icon: 'linkedin' },
+  { label: 'Instagram', href: personalInfo.instagram, icon: 'instagram' },
+]
 
 // ─── SEO ──────────────────────────────────────────────────────────────────────
 export const seoData = {

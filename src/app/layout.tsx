@@ -71,7 +71,7 @@ const jsonLd = {
     addressCountry: 'MX',
     addressLocality: personalInfo.location,
   },
-  sameAs: [personalInfo.linkedin, personalInfo.github],
+  sameAs: [personalInfo.linkedin, personalInfo.github, personalInfo.instagram],
   knowsAbout: seoData.keywords,
   worksFor: {
     '@type': 'Organization',

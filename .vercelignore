@@ -1,0 +1,13 @@
+# Nunca subir secretos ni artefactos locales en los despliegues por CLI
+.env
+.env.local
+.env.*.local
+
+node_modules
+.next
+.git
+.claude
+
+# Fuentes de las capturas y material que no sirve al sitio
+CV_Isai_Aram_Perez.tex
+GITHUB_PROFILE_README.md

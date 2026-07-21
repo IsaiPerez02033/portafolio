@@ -96,8 +96,12 @@ export default function AchievementsCarousel() {
 
   return (
     <section ref={ref} className="w-full py-20 overflow-hidden">
+      {/* Misma columna de 1200px que el resto de la página, ocupándola entera.
+          El encabezado, la ventana del carrusel y los controles comparten el
+          mismo px-6 para que sus bordes izquierdos coincidan. */}
+      <div className="max-w-[1200px] mx-auto">
       {/* Encabezado */}
-      <div className="px-6 md:max-w-4xl md:ml-auto">
+      <div className="px-6">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <h2
             className={clsx(
@@ -126,7 +130,7 @@ export default function AchievementsCarousel() {
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
-        <div className="px-6 md:max-w-4xl md:ml-auto overflow-hidden">
+        <div className="px-6 overflow-hidden">
           <div
             className="flex"
             style={{
@@ -187,7 +191,7 @@ export default function AchievementsCarousel() {
         </div>
 
         {/* Controles */}
-        <div className="px-6 md:max-w-4xl md:ml-auto mt-8 flex gap-3">
+        <div className="px-6 mt-8 flex gap-3">
           <button
             type="button"
             onClick={prev}
@@ -205,6 +209,7 @@ export default function AchievementsCarousel() {
             <ChevronRight className="w-5 h-5" aria-hidden />
           </button>
         </div>
+      </div>
       </div>
     </section>
   )

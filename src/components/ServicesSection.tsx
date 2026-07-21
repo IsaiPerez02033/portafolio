@@ -12,8 +12,11 @@ export default function ServicesSection() {
   const { dark, light } = workModes
 
   return (
-    <section id="servicios" ref={ref} className="w-full py-12 px-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:max-w-4xl md:ml-auto">
+    <section id="servicios" ref={ref} className="w-full py-12">
+      {/* Misma columna de 1200px que el resto de la página, ocupándola entera:
+          con max-w-4xl + ml-auto las tarjetas quedaban pegadas a la derecha. */}
+      <div className="max-w-[1200px] mx-auto px-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Freelance */}
         <article
           className={clsx(
@@ -68,6 +71,7 @@ export default function ServicesSection() {
             </Button>
           </div>
         </article>
+      </div>
       </div>
     </section>
   )

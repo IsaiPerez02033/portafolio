@@ -1,6 +1,7 @@
 'use client'
 
 import { clsx } from 'clsx'
+import { ArrowUpRight } from 'lucide-react'
 import { useInViewAnimation, delay } from '@/hooks/useInViewAnimation'
 import { otherProjects } from '@/data/portfolio'
 
@@ -26,7 +27,20 @@ export default function OtherProjects() {
             className={clsx(anim, 'border-t border-ink/10 pt-5')}
             style={delay(0.15 + i * 0.05)}
           >
-            <h3 className="font-serif text-xl font-semibold text-ink">{p.name}</h3>
+            <div className="flex items-baseline gap-3 flex-wrap">
+              <h3 className="font-serif text-xl font-semibold text-ink">{p.name}</h3>
+              {p.href && (
+                <a
+                  href={p.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-0.5 text-xs font-mono text-ink/50 hover:text-ink transition-colors"
+                >
+                  {p.hrefLabel}
+                  <ArrowUpRight className="w-3 h-3" aria-hidden />
+                </a>
+              )}
+            </div>
             <p className="mt-2 text-sm text-ink/70 leading-relaxed">{p.description}</p>
             <p className="mt-3 font-mono text-[11px] text-ink/40">{p.stack}</p>
           </article>

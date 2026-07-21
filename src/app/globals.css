@@ -94,12 +94,13 @@ body {
   animation: trailOut 1000ms ease-out forwards;
 }
 
+/* -33.3333% = el ancho de un set de los 3 que monta Marquee.tsx */
 @keyframes marquee {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(-33.3333%);
   }
 }
 
