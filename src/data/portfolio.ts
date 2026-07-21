@@ -20,9 +20,19 @@ export const personalInfo = {
   cvUrl: 'https://drive.google.com/file/d/1pgUDKkR3rwAnI0jIfzM7bCIrAwB9J3D1/view?usp=drive_link',
 } as const
 
+const emailSubject = 'Hablemos de un proyecto'
+
 export const mailtoHref = `mailto:${personalInfo.email}?subject=${encodeURIComponent(
-  'Hablemos de un proyecto'
+  emailSubject
 )}`
+
+// Ventana de redacción de Gmail. En escritorio un `mailto:` depende de que el
+// visitante tenga configurado un cliente de correo; si no lo tiene, el clic no
+// hace nada. useContactClick usa esta URL ahí y deja el mailto para el móvil,
+// donde sí abre la app de correo nativa.
+export const gmailComposeHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+  personalInfo.email
+)}&su=${encodeURIComponent(emailSubject)}`
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 export const hero = {

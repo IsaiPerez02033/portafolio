@@ -1,5 +1,8 @@
+'use client'
+
 import { clsx } from 'clsx'
 import type { ReactNode } from 'react'
+import { useContactClick } from '@/hooks/useContactClick'
 
 type Variant = 'primary' | 'secondary' | 'tertiary' | 'ghost'
 
@@ -26,9 +29,12 @@ export default function Button({
   external = false,
   className,
 }: ButtonProps) {
+  const onContactClick = useContactClick()
+
   return (
     <a
       href={href}
+      {...(href.startsWith('mailto:') ? { onClick: onContactClick } : {})}
       {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
       className={clsx(
         'inline-flex items-center justify-center gap-2 rounded-full px-7 py-3',
