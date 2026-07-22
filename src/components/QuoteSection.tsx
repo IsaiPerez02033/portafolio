@@ -11,7 +11,7 @@ export default function QuoteSection() {
   return (
     <section ref={ref} className="py-12 px-6 max-w-2xl mx-auto">
       <div className={anim} style={delay(0.1)}>
-        <Quote className="w-6 h-6 text-slate-900" aria-hidden />
+        <Quote className="w-6 h-6 text-paper-2/30" aria-hidden />
       </div>
 
       <blockquote
@@ -38,7 +38,7 @@ export default function QuoteSection() {
           {quote.affiliations.map((a) => (
             <span
               key={a.name}
-              className="text-[24px] font-medium text-slate-900"
+              className="text-[24px] font-medium text-paper-2/80"
               style={{ minWidth: a.width }}
             >
               {a.name}
