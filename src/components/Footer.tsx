@@ -1,6 +1,6 @@
 import { ArrowUpRight } from 'lucide-react'
 import SocialIcon from '@/components/SocialIcons'
-import { footerLinks, socials } from '@/data/portfolio'
+import { footerLinks, socials, personalInfo } from '@/data/portfolio'
 
 const linkClass = 'text-base text-paper-1 hover:opacity-70 transition-opacity'
 
@@ -20,6 +20,16 @@ export default function Footer() {
                   </a>
                 </li>
               ))}
+              <li>
+                <a
+                  href={personalInfo.cvUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={linkClass}
+                >
+                  Ver CV
+                </a>
+              </li>
             </ul>
 
             <ul className="flex items-center gap-3">

@@ -66,6 +66,9 @@ export default function Hero() {
             <Button href="#proyectos" variant="secondary">
               Ver proyectos
             </Button>
+            <Button href={personalInfo.cvUrl} variant="ghost" external>
+              Ver CV
+            </Button>
           </div>
         </div>
 
