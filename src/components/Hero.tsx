@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { clsx } from 'clsx'
 import Button from '@/components/Button'
 import { useInViewAnimation, delay } from '@/hooks/useInViewAnimation'
-import { hero, personalInfo, mailtoHref } from '@/data/portfolio'
+import { hero, personalInfo } from '@/data/portfolio'
 
 export default function Hero() {
   const { ref, anim } = useInViewAnimation<HTMLElement>()
@@ -62,7 +62,6 @@ export default function Hero() {
             className={clsx(anim, 'flex flex-col sm:flex-row gap-3 md:gap-4 mt-5 md:mt-6')}
             style={delay(0.5)}
           >
-            <Button href={mailtoHref}>Hablemos</Button>
             <Button href="#proyectos" variant="secondary">
               Ver proyectos
             </Button>
