@@ -97,7 +97,11 @@ export default function MatrixShader() {
       return
     }
 
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
+    // En móvil el pixel ratio se queda en 1: un shader procedural a pantalla
+    // completa sobre un panel 3x significa 9 veces más fragmentos por frame, y
+    // ahí es donde se nota en batería y en calor.
+    const coarsePointer = window.matchMedia('(pointer: coarse)').matches
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, coarsePointer ? 1 : 1.5))
     container.appendChild(renderer.domElement)
 
     const scene = new THREE.Scene()
@@ -120,12 +124,24 @@ export default function MatrixShader() {
     })
     scene.add(new THREE.Mesh(geometry, material))
 
-    const onResize = () => {
+    const resize = () => {
       const { clientWidth: w, clientHeight: h } = container
       renderer.setSize(w, h)
       uniforms.iResolution.value.set(w * renderer.getPixelRatio(), h * renderer.getPixelRatio())
     }
-    onResize()
+
+    // En móvil, ocultar/mostrar la barra del navegador dispara resize muchas
+    // veces seguidas. Reasignar el buffer en cada una da tirones, así que se
+    // agrupan en un frame.
+    let resizeRaf: number | null = null
+    const onResize = () => {
+      if (resizeRaf !== null) return
+      resizeRaf = requestAnimationFrame(() => {
+        resizeRaf = null
+        resize()
+      })
+    }
+    resize()
 
     const onPointerMove = (e: PointerEvent) => {
       const ratio = renderer.getPixelRatio()
@@ -153,6 +169,7 @@ export default function MatrixShader() {
 
     start()
     window.addEventListener('resize', onResize)
+    window.addEventListener('orientationchange', onResize)
     window.addEventListener('pointermove', onPointerMove)
     document.addEventListener('visibilitychange', onVisibility)
     reduceMotion.addEventListener('change', () => {
@@ -161,7 +178,9 @@ export default function MatrixShader() {
     })
 
     return () => {
+      if (resizeRaf !== null) cancelAnimationFrame(resizeRaf)
       window.removeEventListener('resize', onResize)
+      window.removeEventListener('orientationchange', onResize)
       window.removeEventListener('pointermove', onPointerMove)
       document.removeEventListener('visibilitychange', onVisibility)
       stop()
@@ -176,7 +195,10 @@ export default function MatrixShader() {
     <div
       ref={containerRef}
       aria-hidden
-      className="fixed inset-0 -z-10 h-screen w-screen pointer-events-none"
+      // Sólo inset-0: h-screen/w-screen usaban 100vh/100vw, que en móvil miden
+      // el viewport *grande* (sin la barra del navegador) y provocaban un lienzo
+      // más alto que la pantalla y scroll horizontal por el ancho de la barra.
+      className="fixed inset-0 -z-10 pointer-events-none"
     />
   )
 }

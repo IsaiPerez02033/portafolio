@@ -6,9 +6,9 @@ const linkClass = 'text-base text-paper-1 hover:opacity-70 transition-opacity'
 
 export default function Footer() {
   return (
-    <footer className="w-full py-12 px-6">
+    <footer className="w-full py-12 px-5 sm:px-6">
       <div className="max-w-[1200px] mx-auto">
-        <div className="flex items-start gap-6">
+        <div className="flex items-start gap-4 sm:gap-6">
           <ArrowUpRight className="w-5 h-5 text-paper-1 mt-0.5 shrink-0" aria-hidden />
 
           <nav className="flex flex-col gap-8" aria-label="Enlaces del pie">

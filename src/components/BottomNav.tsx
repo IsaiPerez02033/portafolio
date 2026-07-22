@@ -30,7 +30,11 @@ export default function BottomNav() {
   return (
     <div
       className={clsx(
-        'fixed bottom-6 left-1/2 z-50 -translate-x-1/2 transition-all duration-500 ease-out',
+        // El bottom sale del safe-area para no quedar bajo la barra de gestos
+        // del iPhone; en pantallas sin muesca env() vale 0 y quedan los 24px.
+        'fixed left-1/2 z-50 -translate-x-1/2 transition-all duration-500 ease-out',
+        '[bottom:calc(1.5rem+env(safe-area-inset-bottom))]',
+        'max-w-[calc(100vw-2rem)]',
         merged
           ? 'pointer-events-none translate-y-6 opacity-0 scale-95'
           : 'opacity-100'

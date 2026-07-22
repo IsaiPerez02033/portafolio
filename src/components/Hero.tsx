@@ -10,14 +10,18 @@ export default function Hero() {
   const { ref, anim } = useInViewAnimation<HTMLElement>()
 
   return (
-    <section id="inicio" ref={ref} className="max-w-[1200px] mx-auto px-6 pt-12 md:pt-16">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-10 md:gap-16">
+    <section
+      id="inicio"
+      ref={ref}
+      className="max-w-[1200px] mx-auto px-5 sm:px-6 pt-10 sm:pt-12 md:pt-16"
+    >
+      <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-8 sm:gap-10 md:gap-16">
         {/* Texto — conserva la columna angosta del diseño original */}
-        <div className="w-full max-w-[440px]">
+        <div className="w-full max-w-[440px] mx-auto md:mx-0">
           <h1
             className={clsx(
               anim,
-              'font-serif text-[32px] md:text-[40px] lg:text-[44px] font-semibold text-paper-1 tracking-tight mb-4'
+              'font-serif text-[30px] sm:text-[36px] md:text-[40px] lg:text-[44px] font-semibold text-paper-1 tracking-tight mb-4'
             )}
             style={delay(0.1)}
           >
@@ -34,7 +38,9 @@ export default function Hero() {
           <p
             className={clsx(
               anim,
-              'text-[32px] md:text-[40px] lg:text-[44px] leading-[1.1] text-paper-1 tracking-tight whitespace-nowrap'
+              // El nowrap protege el corte «plain + accent» de cada línea; a
+              // 30px las dos caben incluso en un iPhone SE (320px).
+              'text-[30px] sm:text-[36px] md:text-[40px] lg:text-[44px] leading-[1.1] text-paper-1 tracking-tight whitespace-nowrap'
             )}
             style={delay(0.3)}
           >
@@ -62,10 +68,15 @@ export default function Hero() {
             className={clsx(anim, 'flex flex-col sm:flex-row gap-3 md:gap-4 mt-5 md:mt-6')}
             style={delay(0.5)}
           >
-            <Button href="#proyectos" variant="secondary">
+            <Button href="#proyectos" variant="secondary" className="w-full sm:w-auto">
               Ver proyectos
             </Button>
-            <Button href={personalInfo.cvUrl} variant="ghost" external>
+            <Button
+              href={personalInfo.cvUrl}
+              variant="ghost"
+              external
+              className="w-full sm:w-auto"
+            >
               Ver CV
             </Button>
           </div>
@@ -74,14 +85,20 @@ export default function Hero() {
         {/* Foto — la original es clara y sobre el fondo oscuro saltaba como un
             recorte. Se integra bajando su brillo y fundiendo el borde inferior
             en el ink del fondo, con el acento marcando el filo. */}
-        <div className={clsx(anim, 'relative w-full max-w-xs shrink-0')} style={delay(0.6)}>
+        <div
+          className={clsx(
+            anim,
+            'relative w-full max-w-[260px] sm:max-w-xs shrink-0 mx-auto md:mx-0'
+          )}
+          style={delay(0.6)}
+        >
           <Image
             src={personalInfo.profileImage}
             alt={`${personalInfo.name} — ${personalInfo.title}`}
             width={800}
             height={1139}
             priority
-            sizes="(max-width: 768px) 100vw, 320px"
+            sizes="(max-width: 640px) 260px, 320px"
             className="w-full rounded-2xl ring-1 ring-paper-1/15 shadow-card brightness-[0.82] contrast-[1.08] saturate-[0.85]"
           />
           <div

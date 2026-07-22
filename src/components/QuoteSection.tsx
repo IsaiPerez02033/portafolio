@@ -9,7 +9,7 @@ export default function QuoteSection() {
   const { ref, anim } = useInViewAnimation<HTMLElement>()
 
   return (
-    <section ref={ref} className="py-12 px-6 max-w-2xl mx-auto">
+    <section ref={ref} className="py-12 px-5 sm:px-6 max-w-2xl mx-auto">
       <div className={anim} style={delay(0.1)}>
         <Quote className="w-6 h-6 text-paper-2/30" aria-hidden />
       </div>
@@ -17,7 +17,7 @@ export default function QuoteSection() {
       <blockquote
         className={clsx(
           anim,
-          'mt-4 text-[32px] md:text-[40px] lg:text-[44px] leading-[1.1] text-paper-1 tracking-tight'
+          'mt-4 text-[30px] sm:text-[36px] md:text-[40px] lg:text-[44px] leading-[1.1] text-paper-1 tracking-tight'
         )}
         style={delay(0.2)}
       >
@@ -34,12 +34,14 @@ export default function QuoteSection() {
         <p className="font-mono text-[11px] uppercase tracking-widest text-muted/70 mb-4">
           {quote.affiliationsLabel}
         </p>
-        <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
+        <div className="flex flex-wrap items-center gap-x-6 sm:gap-x-8 gap-y-3">
           {quote.affiliations.map((a) => (
+            // El minWidth sólo tiene sentido cuando caben en fila; por debajo de
+            // sm reservaría un hueco mayor que la propia pantalla.
             <span
               key={a.name}
-              className="text-[24px] font-medium text-paper-2/80"
-              style={{ minWidth: a.width }}
+              className="text-[20px] sm:text-[24px] font-medium text-paper-2/80 sm:[min-width:var(--w)]"
+              style={{ '--w': `${a.width}px` } as React.CSSProperties}
             >
               {a.name}
             </span>

@@ -48,6 +48,10 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* iOS agranda por su cuenta el texto de las columnas anchas al girar el
+     teléfono; con esto el tamaño es el que dice el diseño */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -58,6 +62,16 @@ body {
   font-family: 'PP Neue Montreal', var(--font-geist-sans), system-ui, -apple-system, sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
+  /* El recuadro gris de iOS al tocar un enlace desentona con los botones, que
+     ya responden con su propia escala */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Ninguna imagen debe poder empujar el ancho de la página en móvil */
+img,
+svg,
+video {
+  max-width: 100%;
 }
 
 ::selection {

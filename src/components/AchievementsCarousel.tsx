@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { clsx } from 'clsx'
 import { Award, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useInViewAnimation, delay } from '@/hooks/useInViewAnimation'
@@ -11,6 +11,8 @@ const GAP = 24
 const AUTOPLAY_MS = 3000
 const TRANSITION_MS = 800
 const LEN = achievements.length
+/** Recorrido horizontal mínimo, en px, para que un arrastre cuente como cambio. */
+const SWIPE_PX = 45
 
 /** Devuelve el índice equivalente dentro del set central, en [LEN, LEN*2). */
 const normalize = (i: number) => (((i - LEN) % LEN) + LEN) % LEN + LEN
@@ -45,13 +47,28 @@ export default function AchievementsCarousel() {
   const [paused, setPaused] = useState(false)
   const step = cardWidth + GAP
 
-  // Ancho de tarjeta según viewport
+  // Ancho de tarjeta según viewport. Se mide el contenedor real y no
+  // window.innerWidth: así el px del padding lateral sale de una sola fuente y
+  // no hay que replicarlo aquí cada vez que cambie.
+  const windowRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
-    const measure = () =>
-      setCardWidth(window.innerWidth < 768 ? window.innerWidth - 48 : CARD_DESKTOP)
+    const measure = () => {
+      const el = windowRef.current
+      if (!el) return
+      // clientWidth incluye el padding, así que hay que descontarlo para saber
+      // cuánto mide de verdad la ventana visible del carrusel.
+      const cs = getComputedStyle(el)
+      const inner =
+        el.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight)
+      setCardWidth(window.innerWidth < 768 ? inner : CARD_DESKTOP)
+    }
     measure()
     window.addEventListener('resize', measure)
-    return () => window.removeEventListener('resize', measure)
+    window.addEventListener('orientationchange', measure)
+    return () => {
+      window.removeEventListener('resize', measure)
+      window.removeEventListener('orientationchange', measure)
+    }
   }, [])
 
   const next = useCallback(() => {
@@ -63,6 +80,54 @@ export default function AchievementsCarousel() {
     setAnimating(true)
     setIndex((i) => i - 1)
   }, [])
+
+  // ── Deslizar con el dedo ───────────────────────────────────────────────────
+  // En móvil los dos botones quedan debajo del carrusel; el gesto natural es
+  // arrastrar la tarjeta. Se sigue el dedo en el eje X y sólo al soltar se
+  // decide si el recorrido dio para cambiar de tarjeta.
+  const dragStart = useRef<{ x: number; y: number } | null>(null)
+  // Espejo en ref del desplazamiento: al soltar hay que leerlo fuera del render
+  const dragRef = useRef(0)
+  const [dragX, setDragX] = useState(0)
+
+  const setDrag = useCallback((v: number) => {
+    dragRef.current = v
+    setDragX(v)
+  }, [])
+
+  const onPointerDown = useCallback((e: React.PointerEvent) => {
+    if (e.pointerType === 'mouse') return // en escritorio manda el hover/autoplay
+    dragStart.current = { x: e.clientX, y: e.clientY }
+    setPaused(true)
+  }, [])
+
+  const onPointerMove = useCallback(
+    (e: React.PointerEvent) => {
+      const from = dragStart.current
+      if (!from) return
+      const dx = e.clientX - from.x
+      // Si el gesto es claramente vertical, es scroll de la página: lo soltamos
+      if (Math.abs(e.clientY - from.y) > Math.abs(dx)) {
+        dragStart.current = null
+        setDrag(0)
+        setPaused(false)
+        return
+      }
+      setDrag(dx)
+    },
+    [setDrag]
+  )
+
+  const onPointerUp = useCallback(() => {
+    const from = dragStart.current
+    const dx = dragRef.current
+    dragStart.current = null
+    setDrag(0)
+    setPaused(false)
+    if (!from) return
+    if (dx <= -SWIPE_PX) next()
+    else if (dx >= SWIPE_PX) prev()
+  }, [next, prev, setDrag])
 
   // Autoplay — sólo con la sección a la vista: fuera de pantalla no aporta nada
   // y el navegador ni siquiera ejecuta las transiciones.
@@ -95,18 +160,18 @@ export default function AchievementsCarousel() {
   }, [animating])
 
   return (
-    <section ref={ref} className="w-full py-20 overflow-hidden">
+    <section ref={ref} className="w-full py-16 md:py-20 overflow-hidden">
       {/* Misma columna de 1200px que el resto de la página, ocupándola entera.
           El encabezado, la ventana del carrusel y los controles comparten el
-          mismo px-6 para que sus bordes izquierdos coincidan. */}
+          mismo padding lateral para que sus bordes izquierdos coincidan. */}
       <div className="max-w-[1200px] mx-auto">
       {/* Encabezado */}
-      <div className="px-6">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+      <div className="px-5 sm:px-6">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 md:gap-6">
           <h2
             className={clsx(
               anim,
-              'text-[32px] md:text-[40px] lg:text-[44px] leading-[1.1] text-paper-1 tracking-tight'
+              'text-[30px] sm:text-[36px] md:text-[40px] lg:text-[44px] leading-[1.1] text-paper-1 tracking-tight'
             )}
             style={delay(0.1)}
           >
@@ -125,20 +190,31 @@ export default function AchievementsCarousel() {
 
       {/* Carrusel */}
       <div
-        className={clsx(anim, 'mt-10')}
+        className={clsx(anim, 'mt-8 md:mt-10')}
         style={delay(0.3)}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
-        <div className="px-6 overflow-hidden">
+        {/* pan-y deja pasar el scroll vertical y nos reserva el eje X para el swipe */}
+        <div
+          ref={windowRef}
+          className="px-5 sm:px-6 overflow-hidden touch-pan-y"
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={onPointerUp}
+          onPointerCancel={onPointerUp}
+        >
           <div
             className="flex"
             style={{
               gap: `${GAP}px`,
-              transform: `translateX(-${index * step}px)`,
-              transition: animating
-                ? `transform ${TRANSITION_MS}ms cubic-bezier(0.4, 0, 0.2, 1)`
-                : 'none',
+              transform: `translateX(${dragX - index * step}px)`,
+              // Mientras el dedo arrastra no hay transición: la tarjeta sigue al
+              // dedo 1:1. Al soltar vuelve la curva de siempre.
+              transition:
+                animating && dragX === 0
+                  ? `transform ${TRANSITION_MS}ms cubic-bezier(0.4, 0, 0.2, 1)`
+                  : 'none',
             }}
           >
             {items.map((a, i) => {
@@ -148,8 +224,8 @@ export default function AchievementsCarousel() {
                   key={`${a.name}-${i}`}
                   aria-hidden={i < LEN || i >= LEN * 2}
                   className={clsx(
-                    'shrink-0 bg-ink-2/70 backdrop-blur-md rounded-[32px] md:rounded-[40px] shadow-card',
-                    'px-6 md:pl-10 md:pr-24 py-8'
+                    'shrink-0 bg-ink-2/70 backdrop-blur-md rounded-[28px] md:rounded-[40px] shadow-card',
+                    'select-none px-6 md:pl-10 md:pr-24 py-7 md:py-8'
                   )}
                   style={{
                     width: `${cardWidth}px`,
@@ -164,7 +240,9 @@ export default function AchievementsCarousel() {
                 >
                   <QuoteMark />
 
-                  <p className="mt-4 text-base text-paper-1 leading-relaxed">{a.text}</p>
+                  <p className="mt-4 text-[15px] md:text-base text-paper-1 leading-relaxed">
+                    {a.text}
+                  </p>
 
                   <div className="mt-6 flex items-center gap-3">
                     <span
@@ -191,7 +269,7 @@ export default function AchievementsCarousel() {
         </div>
 
         {/* Controles */}
-        <div className="px-6 mt-8 flex gap-3">
+        <div className="px-5 sm:px-6 mt-6 md:mt-8 flex gap-3">
           <button
             type="button"
             onClick={prev}

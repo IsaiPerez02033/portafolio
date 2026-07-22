@@ -15,7 +15,7 @@ export default function Marquee() {
 
   return (
     <section
-      className="mt-16 md:mt-20 mb-16 w-full overflow-hidden"
+      className="mt-12 md:mt-20 mb-12 md:mb-16 w-full overflow-hidden"
       aria-label="Capturas de proyectos"
     >
       <div className="flex w-max animate-marquee">
@@ -28,8 +28,8 @@ export default function Marquee() {
             width={1600}
             height={1000}
             priority={i === 0}
-            sizes="(max-width: 768px) 256px, 384px"
-            className="h-[160px] md:h-[240px] w-auto max-w-none object-cover mx-3 rounded-2xl shadow-lg"
+            sizes="(max-width: 768px) 224px, 384px"
+            className="h-[130px] sm:h-[160px] md:h-[240px] w-auto max-w-none object-cover mx-2 md:mx-3 rounded-xl md:rounded-2xl shadow-lg"
           />
         ))}
       </div>

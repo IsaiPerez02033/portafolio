@@ -28,6 +28,10 @@ export default function PartnerSection() {
   const timers = useRef<Set<ReturnType<typeof setTimeout>>>(new Set())
 
   const onMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    // La estela es un efecto de cursor. En táctil el navegador sintetiza un
+    // mousemove en cada tap y soltaba una miniatura suelta sin motivo.
+    if (!window.matchMedia('(hover: hover)').matches) return
+
     const now = performance.now()
     if (now - lastSpawn.current < SPAWN_EVERY_MS) return
     lastSpawn.current = now
@@ -64,14 +68,14 @@ export default function PartnerSection() {
   }, [])
 
   return (
-    <section ref={ref} className="w-full py-12 px-6">
+    <section ref={ref} className="w-full py-12 px-5 sm:px-6">
       <div
         ref={boxRef}
         onMouseMove={onMouseMove}
         onMouseLeave={() => setTrails([])}
         className={clsx(
           anim,
-          'relative max-w-7xl mx-auto py-48 rounded-[40px] bg-ink-2/40 backdrop-blur-md border border-paper-1/10 shadow-secondary overflow-hidden'
+          'relative max-w-7xl mx-auto py-24 sm:py-32 md:py-48 rounded-[28px] md:rounded-[40px] bg-ink-2/40 backdrop-blur-md border border-paper-1/10 shadow-secondary overflow-hidden'
         )}
         style={delay(0.1)}
       >
@@ -96,8 +100,8 @@ export default function PartnerSection() {
         ))}
 
         {/* Contenido */}
-        <div className="relative z-10 flex flex-col items-center pointer-events-none">
-          <h2 className="font-serif text-[48px] md:text-[64px] lg:text-[80px] leading-none text-paper-1 text-center mb-12">
+        <div className="relative z-10 flex flex-col items-center px-5 pointer-events-none">
+          <h2 className="font-serif text-[34px] sm:text-[48px] md:text-[64px] lg:text-[80px] leading-none text-paper-1 text-center mb-8 md:mb-12">
             Trabajemos juntos
           </h2>
 

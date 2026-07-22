@@ -57,6 +57,11 @@ export const metadata: Metadata = {
 // La barra del navegador en móvil y los controles nativos (scrollbars, campos)
 // se pintan en oscuro; si no, aparece una franja blanca sobre el sitio.
 export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  // La página se pinta de borde a borde; `cover` deja que el fondo llegue bajo
+  // la muesca y habilita env(safe-area-inset-*) para apartar de ahí el contenido.
+  viewportFit: 'cover',
   themeColor: '#03090A',
   colorScheme: 'dark',
 }
