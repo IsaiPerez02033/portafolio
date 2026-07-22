@@ -1,46 +1,43 @@
 'use client'
 
-import { useHoldToContact } from '@/hooks/useHoldToContact'
-import { mailtoHref } from '@/data/portfolio'
+import { useEffect, useRef, useState } from 'react'
+import { clsx } from 'clsx'
+import ContactHoldButton from '@/components/ContactHoldButton'
 
 /**
- * Píldora flotante fija abajo: la inicial vuelve al inicio y «Hablemos» es un
- * mantener-presionado que dispara la salida tipo Matrix y navega a Gmail —
- * misma mecánica que el CTA grande, vía useHoldToContact.
+ * Píldora flotante de contacto, idéntica al CTA de «Trabajemos juntos».
+ *
+ * Se esconde en cuanto ese CTA (#contacto-cta) entra en pantalla: da la
+ * sensación de que la flotante se funde con la que ya está en la sección, en
+ * vez de quedar duplicada frente a ella.
  */
 export default function BottomNav() {
-  const { progress, handlers } = useHoldToContact()
-  const pct = Math.round(progress * 100)
+  const [merged, setMerged] = useState(false)
+  const observed = useRef(false)
+
+  useEffect(() => {
+    const target = document.getElementById('contacto-cta')
+    if (!target) return
+    observed.current = true
+    const io = new IntersectionObserver(
+      ([entry]) => setMerged(entry.isIntersecting),
+      { rootMargin: '-20% 0px' } // que desaparezca cuando el CTA está bien a la vista
+    )
+    io.observe(target)
+    return () => io.disconnect()
+  }, [])
 
   return (
-    <nav
-      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50"
-      aria-label="Acciones rápidas"
+    <div
+      className={clsx(
+        'fixed bottom-6 left-1/2 z-50 -translate-x-1/2 transition-all duration-500 ease-out',
+        merged
+          ? 'pointer-events-none translate-y-6 opacity-0 scale-95'
+          : 'opacity-100'
+      )}
+      aria-hidden={merged}
     >
-      <div className="flex items-center gap-5 rounded-full bg-white px-8 py-2 shadow-[0_1px_2px_0_rgba(5,26,36,0.1),0_4px_10px_0_rgba(5,26,36,0.08),0_12px_30px_0_rgba(5,26,36,0.08),inset_0_1px_0_0_rgba(255,255,255,0.9)]">
-        <a
-          href="#inicio"
-          className="font-serif text-2xl font-semibold text-ink leading-none"
-          aria-label="Ir al inicio"
-        >
-          I
-        </a>
-
-        <a
-          href={mailtoHref}
-          {...handlers}
-          aria-label="Hablemos — mantén presionado para escribirme"
-          className="group relative inline-flex select-none items-center justify-center overflow-hidden rounded-full bg-ink px-7 py-3 text-sm font-medium text-paper-1 [touch-action:none] [-webkit-touch-callout:none] transition-transform duration-200 hover:scale-[1.03] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pulse"
-        >
-          {/* Relleno de progreso: barre la píldora de izquierda a derecha */}
-          <span
-            aria-hidden
-            className="pointer-events-none absolute inset-y-0 left-0 bg-gradient-to-r from-beam/50 to-pulse/60"
-            style={{ width: `${pct}%` }}
-          />
-          <span className="relative z-10">Hablemos</span>
-        </a>
-      </div>
-    </nav>
+      <ContactHoldButton showHint={false} />
+    </div>
   )
 }

@@ -4,8 +4,12 @@ import Image from 'next/image'
 import { useHoldToContact } from '@/hooks/useHoldToContact'
 import { personalInfo, mailtoHref } from '@/data/portfolio'
 
-/** CTA grande de la sección «Trabajemos juntos»: avatar + nombre + pista. */
-export default function ContactHoldButton() {
+/**
+ * Píldora de contacto: avatar + «Habla con Aram» con relleno de progreso al
+ * mantener presionado. La comparten el CTA grande de «Trabajemos juntos» y la
+ * píldora flotante inferior, para que tengan exactamente la misma forma.
+ */
+export default function ContactHoldButton({ showHint = true }: { showHint?: boolean }) {
   const { progress, handlers } = useHoldToContact()
   const pct = Math.round(progress * 100)
 
@@ -35,12 +39,14 @@ export default function ContactHoldButton() {
         <span className="relative z-10">Habla con {personalInfo.firstName}</span>
       </a>
 
-      <span
-        aria-hidden
-        className="font-mono text-[11px] text-paper-2/50 transition-opacity duration-200"
-      >
-        {progress > 0 ? 'Sigue presionando…' : 'Mantén presionado'}
-      </span>
+      {showHint && (
+        <span
+          aria-hidden
+          className="font-mono text-[11px] text-paper-2/50 transition-opacity duration-200"
+        >
+          {progress > 0 ? 'Sigue presionando…' : 'Mantén presionado'}
+        </span>
+      )}
     </div>
   )
 }

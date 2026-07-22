@@ -101,7 +101,7 @@ export default function PartnerSection() {
             Trabajemos juntos
           </h2>
 
-          <div className="pointer-events-auto">
+          <div id="contacto-cta" className="pointer-events-auto">
             <ContactHoldButton />
           </div>
         </div>
