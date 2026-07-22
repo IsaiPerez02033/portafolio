@@ -30,8 +30,9 @@ const FRAGMENT_SHADER = /* glsl */ `
   uniform float iTime;
   uniform vec2 iMouse;
 
-  // #051A24 — el mismo ink de la marca, para que el lienzo sea el fondo del sitio
-  const vec3 BASE = vec3(0.0196, 0.1020, 0.1412);
+  // Base más oscura que el ink de marca (#051A24) para que el fondo no se lea
+  // azuloso. html en globals.css usa este mismo tono para el arranque.
+  const vec3 BASE = vec3(0.0118, 0.0549, 0.0784); // ~#030E14
 
   float random(vec2 st) {
     return fract(sin(dot(st.xy, vec2(12.9898, 78.233))) * 43758.5453123);
@@ -58,13 +59,15 @@ const FRAGMENT_SHADER = /* glsl */ `
     float glow = 1.0 - smoothstep(0.0, 0.8, gridUv.y);
     float intensity = character * glow * fall;
 
-    vec3 color1 = vec3(0.1, 0.3, 0.9);
+    // Menos azul: color1 tira a turquesa en vez de azul puro
+    vec3 color1 = vec3(0.12, 0.32, 0.6);
     vec3 color2 = vec3(0.1, 0.8, 0.5);
     vec3 rain = mix(color1, color2, random(gridId)) * intensity;
     rain *= (1.0 - random(gridId + t) * 0.2);
 
-    // Atenuado: el texto del sitio va encima y tiene que ganar siempre
-    gl_FragColor = vec4(BASE + rain * 0.55, 1.0);
+    // Muy atenuado: la lluvia es un detalle, no el protagonista. El texto va
+    // encima y tiene que ganar siempre.
+    gl_FragColor = vec4(BASE + rain * 0.28, 1.0);
   }
 `
 

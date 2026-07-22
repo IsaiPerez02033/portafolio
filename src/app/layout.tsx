@@ -57,7 +57,7 @@ export const metadata: Metadata = {
 // La barra del navegador en móvil y los controles nativos (scrollbars, campos)
 // se pintan en oscuro; si no, aparece una franja blanca sobre el sitio.
 export const viewport: Viewport = {
-  themeColor: '#051A24',
+  themeColor: '#030E14',
   colorScheme: 'dark',
 }
 
