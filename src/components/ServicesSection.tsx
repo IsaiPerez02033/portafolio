@@ -3,7 +3,7 @@
 import { clsx } from 'clsx'
 import Button from '@/components/Button'
 import { useInViewAnimation, delay } from '@/hooks/useInViewAnimation'
-import { workModes, mailtoHref } from '@/data/portfolio'
+import { workModes } from '@/data/portfolio'
 
 const CARD = 'rounded-[40px] pl-10 pr-10 md:pr-24 pt-3 pb-10'
 
@@ -40,10 +40,7 @@ export default function ServicesSection() {
           <p className="mt-8 text-2xl text-paper-1">{dark.value}</p>
           <p className="text-sm text-paper-2/60">{dark.valueLabel}</p>
 
-          <div className="mt-8 flex flex-col sm:flex-row gap-3">
-            <Button href={mailtoHref} variant="secondary">
-              Hablemos
-            </Button>
+          <div className="mt-8">
             <Button href="#proyectos" variant="ghost">
               Ver proyectos
             </Button>
@@ -66,12 +63,6 @@ export default function ServicesSection() {
 
           <p className="mt-8 text-2xl text-paper-1">{light.value}</p>
           <p className="text-sm text-paper-2/65">{light.valueLabel}</p>
-
-          <div className="mt-8">
-            <Button href={mailtoHref} variant="tertiary">
-              Hablemos
-            </Button>
-          </div>
         </article>
       </div>
       </div>

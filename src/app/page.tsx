@@ -11,6 +11,7 @@ import Skills from '@/components/Skills'
 import PartnerSection from '@/components/PartnerSection'
 import Footer from '@/components/Footer'
 import CopyrightBar from '@/components/CopyrightBar'
+import BottomNav from '@/components/BottomNav'
 
 export default function Home() {
   return (
@@ -32,6 +33,7 @@ export default function Home() {
       <Footer />
       <CopyrightBar />
 
+      <BottomNav />
       <MatrixExitOverlay />
     </>
   )
