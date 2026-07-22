@@ -43,8 +43,8 @@
 }
 
 html {
-  /* Misma base que el shader (~#030E14): cubre el arranque y el caso sin WebGL */
-  background-color: #030e14;
+  /* Misma base que el shader (~#03090A): cubre el arranque y el caso sin WebGL */
+  background-color: #03090a;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
