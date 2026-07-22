@@ -4,8 +4,8 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { clsx } from 'clsx'
 import { useInViewAnimation, delay } from '@/hooks/useInViewAnimation'
-import { useContactClick } from '@/hooks/useContactClick'
-import { marqueeImages, personalInfo, mailtoHref } from '@/data/portfolio'
+import ContactHoldButton from '@/components/ContactHoldButton'
+import { marqueeImages } from '@/data/portfolio'
 
 const SPAWN_EVERY_MS = 80
 const LIFETIME_MS = 1000
@@ -20,7 +20,6 @@ interface Trail {
 
 export default function PartnerSection() {
   const { ref, anim } = useInViewAnimation<HTMLElement>()
-  const onContactClick = useContactClick()
   const boxRef = useRef<HTMLDivElement>(null)
   const [trails, setTrails] = useState<Trail[]>([])
 
@@ -103,21 +102,7 @@ export default function PartnerSection() {
           </h2>
 
           <div className="pointer-events-auto">
-            <a
-              href={mailtoHref}
-              onClick={onContactClick}
-              className="inline-flex items-center gap-3 rounded-full bg-paper-1 text-ink shadow-primary pl-2 pr-7 py-2 text-sm font-medium transition-all duration-200 hover:scale-[1.03] hover:shadow-glow active:scale-[0.98]"
-            >
-              <Image
-                src={personalInfo.profileImage}
-                alt=""
-                aria-hidden
-                width={80}
-                height={80}
-                className="w-10 h-10 rounded-full object-cover"
-              />
-              Habla con {personalInfo.firstName}
-            </a>
+            <ContactHoldButton />
           </div>
         </div>
       </div>

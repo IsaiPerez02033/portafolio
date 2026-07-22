@@ -2,10 +2,7 @@
 
 import { useCallback } from 'react'
 import { gmailComposeHref } from '@/data/portfolio'
-
-/** Móviles y tablets, donde `mailto:` abre la app de correo del sistema */
-const isMobile = () =>
-  /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)
+import { isMobile } from '@/lib/isMobile'
 
 /**
  * Hace que los enlaces `mailto:` abran de verdad una ventana de mensaje.

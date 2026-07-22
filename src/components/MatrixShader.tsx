@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
+import { getHoldProgress } from '@/lib/holdProgress'
 
 /**
  * Fondo animado: lluvia de caracteres que se deforma alrededor del cursor.
@@ -29,6 +30,7 @@ const FRAGMENT_SHADER = /* glsl */ `
   uniform vec2 iResolution;
   uniform float iTime;
   uniform vec2 iMouse;
+  uniform float uProgress; // 0..1 del botón «mantener presionado»
 
   // Base más oscura que el ink de marca (#051A24) para que el fondo no se lea
   // azuloso. html en globals.css usa este mismo tono para el arranque.
@@ -39,6 +41,9 @@ const FRAGMENT_SHADER = /* glsl */ `
   }
 
   void main() {
+    float p = uProgress;
+    float t = iTime * 2.0;
+
     vec2 uv = (gl_FragCoord.xy * 2.0 - iResolution.xy) / iResolution.y;
     vec2 mouse = (iMouse * 2.0 - iResolution) / iResolution.y;
 
@@ -46,15 +51,20 @@ const FRAGMENT_SHADER = /* glsl */ `
     float warp = smoothstep(0.5, 0.0, dist);
     uv += normalize(uv - mouse) * warp * 0.2;
 
+    // Glitch al cargar: bandas horizontales que se desplazan de golpe.
+    float band = floor(uv.y * 18.0);
+    float jump = step(0.6, random(vec2(band, floor(iTime * 12.0))));
+    uv.x += jump * p * (random(vec2(band, 3.0)) - 0.5) * 0.6;
+
     float gridSize = 30.0;
     vec2 gridUv = fract(uv * gridSize);
     vec2 gridId = floor(uv * gridSize);
 
-    float t = iTime * 2.0;
-    float fall = fract(gridId.y * 0.1 - t * 0.5 + random(gridId.xx) * 2.0);
+    float fall = fract(gridId.y * 0.1 - t * (0.5 + p * 2.0) + random(gridId.xx) * 2.0);
 
     float character = random(gridId + floor(t * 5.0 * random(gridId.yx)));
-    character = step(0.95, character);
+    // Más caracteres encendidos conforme sube el progreso (0.95 -> 0.5)
+    character = step(mix(0.95, 0.5, p), character);
 
     float glow = 1.0 - smoothstep(0.0, 0.8, gridUv.y);
     float intensity = character * glow * fall;
@@ -65,9 +75,9 @@ const FRAGMENT_SHADER = /* glsl */ `
     vec3 rain = mix(color1, color2, random(gridId)) * intensity;
     rain *= (1.0 - random(gridId + t) * 0.2);
 
-    // Muy atenuado: la lluvia es un detalle, no el protagonista. El texto va
-    // encima y tiene que ganar siempre.
-    gl_FragColor = vec4(BASE + rain * 0.28, 1.0);
+    // La lluvia sube de intensidad con el progreso; la base se apaga a negro.
+    vec3 base = mix(BASE, vec3(0.0), p);
+    gl_FragColor = vec4(base + rain * mix(0.28, 1.6, p), 1.0);
   }
 `
 
@@ -99,6 +109,7 @@ export default function MatrixShader() {
       iResolution: { value: new THREE.Vector2() },
       // Arranca en el centro; en (0,0) la deformación se pega a una esquina
       iMouse: { value: new THREE.Vector2(window.innerWidth / 2, window.innerHeight / 2) },
+      uProgress: { value: 0 },
     }
 
     const geometry = new THREE.PlaneGeometry(2, 2)
@@ -131,6 +142,7 @@ export default function MatrixShader() {
       }
       renderer.setAnimationLoop(() => {
         uniforms.iTime.value = clock.getElapsedTime()
+        uniforms.uProgress.value = getHoldProgress()
         renderer.render(scene, camera)
       })
     }

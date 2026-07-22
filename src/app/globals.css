@@ -98,6 +98,40 @@ body {
   animation: trailOut 1000ms ease-out forwards;
 }
 
+/* Interferencia del overlay «salir de la Matrix»: parpadeo y temblor sutil.
+   La opacidad de las capas la controla MatrixExitOverlay según el progreso;
+   estas animaciones sólo dan vida al velo mientras está activo. */
+@keyframes scanlineDrift {
+  0% {
+    background-position-y: 0;
+  }
+  100% {
+    background-position-y: 100px;
+  }
+}
+
+@keyframes interferenceFlicker {
+  0%,
+  100% {
+    opacity: 0.85;
+  }
+  50% {
+    opacity: 1;
+  }
+  20%,
+  80% {
+    opacity: 0.6;
+  }
+}
+
+.animate-scanline {
+  animation: scanlineDrift 0.5s linear infinite;
+}
+
+.animate-interference {
+  animation: interferenceFlicker 0.18s steps(2, end) infinite;
+}
+
 /* -33.3333% = el ancho de un set de los 3 que monta Marquee.tsx */
 @keyframes marquee {
   0% {
@@ -131,5 +165,10 @@ body {
   .animate-fade-in-up {
     animation: none;
     opacity: 1;
+  }
+
+  .animate-scanline,
+  .animate-interference {
+    animation: none;
   }
 }

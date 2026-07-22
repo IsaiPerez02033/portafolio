@@ -1,4 +1,5 @@
 import MatrixBackground from '@/components/MatrixBackground'
+import MatrixExitOverlay from '@/components/MatrixExitOverlay'
 import Hero from '@/components/Hero'
 import Marquee from '@/components/Marquee'
 import QuoteSection from '@/components/QuoteSection'
@@ -30,6 +31,8 @@ export default function Home() {
 
       <Footer />
       <CopyrightBar />
+
+      <MatrixExitOverlay />
     </>
   )
 }
