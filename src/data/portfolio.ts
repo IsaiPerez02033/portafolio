@@ -66,11 +66,11 @@ export const marqueeImages: { src: string; alt: string }[] = [
 
 // ─── Cita ─────────────────────────────────────────────────────────────────────
 export const quote = {
-  // El mérito no se lo lleva la tecnología ni quien la escribe, sino haber
-  // mirado un problema que los demás ya daban por perdido.
+  // Habla del trabajo, no del logro personal: el problema llevaba ahí desde
+  // antes, y lo que cuenta es haberse puesto a resolverlo.
   plain: 'Trabajo bajo el nombre de ',
   accent: 'XOLUM',
-  rest: ' para construir soluciones reales a problemas que la gente ya se había resignado a tener',
+  rest: ' para construir soluciones reales a problemas que llevaban años esperando a alguien',
   author: 'Aram Pérez',
   // Formación y programas — NO son clientes. La etiqueta lo deja explícito.
   affiliationsLabel: 'Formación y programas',
