@@ -66,9 +66,11 @@ export const marqueeImages: { src: string; alt: string }[] = [
 
 // ─── Cita ─────────────────────────────────────────────────────────────────────
 export const quote = {
-  plain: 'Fundé ',
+  // El mérito no se lo lleva la tecnología ni quien la escribe, sino haber
+  // mirado un problema que los demás ya daban por perdido.
+  plain: 'Trabajo bajo el nombre de ',
   accent: 'XOLUM',
-  rest: ' para construir el estudio con el que siempre quise trabajar',
+  rest: ' para construir soluciones reales a problemas que la gente ya se había resignado a tener',
   author: 'Aram Pérez',
   // Formación y programas — NO son clientes. La etiqueta lo deja explícito.
   affiliationsLabel: 'Formación y programas',
