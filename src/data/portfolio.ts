@@ -46,8 +46,8 @@ export const hero = {
     { plain: 'a ', accent: 'producción.' },
   ],
   paragraphs: [
-    'Estudio Ingeniería en Inteligencia Artificial en la ESCOM del IPN. Fundé XOLUM para llevar ese trabajo hasta producto real: sitios, plataformas SaaS y sistemas con IA que hoy usan empresas en México.',
-    'El estudio es deliberadamente pequeño. Dirijo la parte técnica de cada proyecto, con un equipo de ingenieros del IPN que se mueve rápido sin recortar por dentro.',
+    'Estudio Ingeniería en Inteligencia Artificial en la ESCOM del IPN. Trabajo bajo el nombre de XOLUM, llevando ese trabajo hasta producto real: sitios, plataformas SaaS y sistemas con IA que hoy usan empresas en México.',
+    'Me encargo de la parte técnica de cada proyecto, del primer boceto hasta que está en producción y en uso.',
     'Disponible para proyectos freelance y oportunidades de medio tiempo.',
   ],
 }
