@@ -146,6 +146,20 @@ video {
   animation: interferenceFlicker 0.18s steps(2, end) infinite;
 }
 
+/* Grano del cristal antirreflejos (ScreenOverlay.tsx).
+   El ruido lo genera el propio navegador con feTurbulence dentro de un SVG en
+   data: URI, así que no hay que servir ninguna imagen. stitchTiles hace que el
+   mosaico case sin costuras y feColorMatrix lo desatura.
+
+   Mezcla normal, no overlay: sobre un fondo casi negro overlay multiplica y el
+   grano desaparecería justo donde se quiere ver. Es una textura estática, no
+   film grain: no se anima, se compone una vez y ahí se queda. */
+.screen-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  opacity: 0.04;
+}
+
 /* -33.3333% = el ancho de un set de los 3 que monta Marquee.tsx */
 @keyframes marquee {
   0% {

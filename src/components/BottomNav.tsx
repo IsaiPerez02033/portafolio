@@ -34,7 +34,10 @@ export default function BottomNav() {
         // del iPhone; en pantallas sin muesca env() vale 0 y quedan los 24px.
         'fixed left-1/2 z-50 -translate-x-1/2 transition-all duration-500 ease-out',
         '[bottom:calc(1.5rem+env(safe-area-inset-bottom))]',
-        'max-w-[calc(100vw-2rem)]',
+        // w-max es obligatorio: en un fixed con left-1/2 el ancho automático se
+        // limita a 100vw-50vw, o sea media pantalla, y en móvil eso partía
+        // «Habla con Aram» en dos líneas. El max-w sigue de tope por si acaso.
+        'w-max max-w-[calc(100vw-2rem)]',
         merged
           ? 'pointer-events-none translate-y-6 opacity-0 scale-95'
           : 'opacity-100'
